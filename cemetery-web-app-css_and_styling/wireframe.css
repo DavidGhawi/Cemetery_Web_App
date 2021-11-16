@@ -35,7 +35,6 @@ html {
 
 
 .header {
-  width = 100%;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
   text-transform: uppercase;
   letter-spacing: 4px;
