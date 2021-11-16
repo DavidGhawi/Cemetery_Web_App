@@ -1,0 +1,52 @@
+html {
+  height:100%;
+  background-image: linear-gradient(to right top, #187828 0%, #3498db 100%);
+}
+
+.navigation {
+    max-width: 960px;
+    mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.navigation ul {
+  text-align: center;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+}
+
+.navigation ul li {
+  display: inline-block;
+}
+
+.navigation ul li a {
+  color:  black;
+  padding:  20px;
+  width: 25%;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+.navigation ul li a:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(0, 35, 122, 0.7);
+}
+
+
+
+
+#headerContent {
+  text-align:  center;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
