@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" type = "text/css" href = "wireframe.css">
+  <link rel="stylesheet" type = "text/css" href = "Home_styling.css">
+	<title> Title </title>
+</head>
+<body>
+
+	<nav class = "navigation">
+  		<ul>
+    		<li>
+      			<a href="Home_page.html">Home</a>
+    		</li>
+    		<li>
+      			<a href="#">View Map</a>
+    		</li>
+    		<li>
+      			<a href="#">Search Name</a>
+    		</li>
+    		<li>
+      			<a href="#">Login</a>
+    		</li>
+ 		 </ul>
+	</nav>
+
+	<header class = "header">
+	<h1 id = "headerContent"> St woolos Cemetery </h1>
+	</header>
+
+  <aside class = "sidebar">
+    <h1>Facts about St Woolos Cemetery</h1>
+    <p>St Woolos Cemetery (officially named Newport and St Woolos new Cemetery)
+      is the main cemetery in the city of Newport,
+      Wales situated one mile to the west of the Church in Wales cathedral known by the same name.
+      It contains four chapels, and various ornate memorials dating back to the early Victorian period,
+      and was the first municipally constructed cemetery in England and Wales.
+      It remains in use to this present day as the main cemetery for burials in Newport,
+      and has been used as a filming location for the BBC series, Doctor Who as well as Sherlock.</p>
+
+  </aside>
+
+  <main>
+
+    <section class = "section1">
+    <h1>content1 title</h1>
+    <img src="#" alt="#">
+      <p>content 1</p>
+    </section>
+
+    <section class = "section2">
+    <h1>content2 title</h1>
+    <img src="#" alt="#">
+      <p>content 2</p>
+    </section>
+
+  </main>
+
+	<footer class = "footer">
+    footer
+    <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
+	</footer>
+</body>
+</html>
+
+
+<script type="text/javascript">
+  var topbutton = document.getElementById("topBtn");
+
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topbutton.style.display = "block";
+    } else {
+      topbutton.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+</script>
