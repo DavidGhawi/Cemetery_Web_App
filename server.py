@@ -22,8 +22,8 @@ def home():
         return render_template('Home_page.html')
 
 # @app.route("/home")
-# def redirectToStatic():    
-#     print("Grab something from static (redirect)")    
+# def redirectToStatic():
+#     print("Grab something from static (redirect)")
 #     return render_template("Wireframe.html")
 
 @app.route('/templates/signup.html', methods = ["post"])
@@ -33,7 +33,7 @@ def admin():
         return render_template("Wireframe.html")
     else:
         message = "Wrong Username"
-        return render_template("login page.html")
+        return render_template("login_page.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
