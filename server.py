@@ -16,10 +16,15 @@ def signup():
     if request.method == 'GET':
         return render_template('signup.html')
 
-@app.route("/home")
-def redirectToStatic():    
-    print("Grab something from static (redirect)")    
-    return render_template("Wireframe.html")
+@app.route("/home", methods=['GET'])
+def home():
+    if request.method == 'GET':
+        return render_template('Home_page.html')
+
+# @app.route("/home")
+# def redirectToStatic():    
+#     print("Grab something from static (redirect)")    
+#     return render_template("Wireframe.html")
 
 @app.route('/templates/signup.html', methods = ["post"])
 def admin():
