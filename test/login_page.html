@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <link rel="stylesheet" type = "text/css" href = "\static\wireframe.css">
+      <title> Title </title>
+</head>
+<body>
+      
+      <nav class = "navigation">
+            <ul>
+            <li>
+                        <a href="/home">Home</a>
+            </li>
+            <li>
+                        <a href="#">View Map</a>
+            </li>
+            <li>
+                        <a href="#">Search Name</a>
+            </li>
+            <li>
+                        <a href="#">Login</a>
+            </li>
+             </ul>
+      </nav>
+
+      <header class = "header">
+      <h1 id = "headerContent">{% block titleBlock%} Login / Sign UP {%endblock%}</h1>
+      </header>
+      
+      <div class = "content"> 
+            <form class='myForm'  method="POST" action="">
+                  <a href="/login" id="login"> Log In<a>
+                  <a href="/signup" id="signup"> Sign Up</a>
+                  <br>
+                  {%block mainBlock%}
+
+                  {%endblock%}
+            </form>
+      </div>
+
+      <footer class = "footer">
+            footer
+      </footer>
+</body>
+</html>
