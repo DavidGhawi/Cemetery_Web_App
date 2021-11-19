@@ -16,8 +16,6 @@ if not os.path.exists(DATABASE):
 app = Flask(__name__)
 
 
-
-
 @app.route("/signup", methods=['GET'])
 def signup():
     if request.method == 'GET':
@@ -29,6 +27,7 @@ def home():
     if request.method == 'GET':
         return render_template('Home_page.html')
 
+
 @app.route("/map", methods=['GET'])
 def map():
     if request.method == 'GET':
@@ -39,6 +38,36 @@ def map():
 def nodata():
     if request.method == 'GET':
         return render_template('nodata.html')
+
+
+@app.route("/moderator", methods=['GET'])
+def moderator():
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    c.execute("SELECT * FROM Information WHERE Public = 0;")
+    data = c.fetchall()
+
+    return render_template('moderator.html', information=data)
+
+
+@app.route("/remove/<id>", methods=['POST'])
+def remove(id):
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    c.execute("DELETE FROM Information WHERE ID = ?", (id,))
+    conn.commit()
+    conn.close()
+    return "ok"
+
+
+@app.route("/approve/<id>", methods=['POST'])
+def approve(id):
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    c.execute("UPDATE Information SET Public = 1 WHERE ID = ?", (id,))
+    conn.commit()
+    conn.close()
+    return "ok"
 
 
 @app.route("/login", methods=['GET', 'POST'])

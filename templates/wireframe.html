@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<link rel="stylesheet" type = "text/css" href = "\static\wireframe.css">
-	<title> Title </title>
-</head>
-<body>
-	
-	<nav class = "navigation">
-  		<ul>
-    		<li>
-      			<a href="#">Home</a>
-    		</li>
-    		<li>
-      			<a href="#">View Map</a>
-    		</li>
-    		<li>
-      			<a href="#">Search Name</a>
-    		</li>
-    		<li>
-      			<a href="E:\UNI\HTML\Client Project\templates\login page.html">Login</a>
-    		</li>
- 		 </ul>
-	</nav>
+	<head>
+		<link rel="stylesheet" type="text/css" href="\static\wireframe.css" />
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.0.6/build/grids-responsive-min.css" />
+		<title>Title</title>
+	</head>
+	<body>
+		<nav class="navigation">
+			<ul>
+				<li>
+					<a href="#">Home</a>
+				</li>
+				<li>
+					<a href="#">View Map</a>
+				</li>
+				<li>
+					<a href="#">Search Name</a>
+				</li>
+				<li>
+					<a href="/login">Login</a>
+				</li>
+			</ul>
+		</nav>
 
-	<header class = "header">
-	<h1 id = "headerContent"> Home Page </h1>
-	</header>
-	
-	<footer class = "footer">
-		footer
-	</footer>
-</body>
+		<header class="header">
+			<h1 id="headerContent">{%block titleBlock%} Home Page {%endblock%}</h1>
+		</header>
+
+		{%block mainBlock%} {%endblock%}
+
+		<footer class="footer">footer</footer>
+	</body>
 </html>
