@@ -64,7 +64,7 @@ def usersearch():
             if len(data) > 0:
                 return redirect('/home')
             else:
-                return redirect('/login')
+                return render_template('Signin.html', message="Wrong Username or Password")
         except Exception as e:
             print(e)
             print('there was an error')
