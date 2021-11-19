@@ -5,6 +5,14 @@ ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 DATABASE = 'cemetery_db.db'
 
+if not os.path.exists(DATABASE):
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    script = open('cemetery_database.sql', 'r').read()
+    c.executescript(script)
+    conn.commit()
+    conn.close()
+
 app = Flask(__name__)
 
 

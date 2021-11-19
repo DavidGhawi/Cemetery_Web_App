@@ -14,10 +14,10 @@ CREATE TABLE IF NOT EXISTS `Information` (
   `Name`	TEXT NOT NULL,
   `Date of birth`	TEXT NOT NULL,
   `Date of death`	TEXT NOT NULL,
-  `Information`	TEXT NOT NULL
-  `Cemetery section`	TEXT NOT NULL
-  `Grave number`	TEXT NOT NULL
+  `Information`	TEXT NOT NULL,
+  `Cemetery section`	TEXT NOT NULL,
+  `Grave number`	TEXT NOT NULL,
   `Image`	TEXT NOT NULL
 );
 
-INSERT INTO 'Inforamtion'('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image') VALUES ('', '', '', '', '')
+INSERT INTO 'Information'('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image') VALUES ('', '', '', '', '')
