@@ -1,0 +1,41 @@
+{%extends 'wireframe.html'%} {% block mainBlock%}
+<div>
+	{% for data in information %}
+	<div info-id="{{ data[0] }}" class="pure-u-xl-1-5">
+		<p>Id: {{ data[0] }}</p>
+		<p>Name: {{ data[1] }}</p>
+		<p>Date of Birth: {{ data[2] }}</p>
+		<p>Date of Death: {{ data[3] }}</p>
+		<p>Information: {{ data[4] }}</p>
+		<p>Cemetery Section: {{ data[5] }}</p>
+		<p>Grave Number: {{ data[6] }}</p>
+		<img src="{{ data[7] }}" alt="Picture of {{ data[1] }}" />
+		<button>Remove Submission</button>
+		<button>Approve Submission</button>
+	</div>
+	{% endfor %}
+</div>
+<script>
+	document.querySelectorAll("div[info-id]").forEach((elem) => {
+		const buttons = elem.querySelectorAll("button");
+		const removeButton = buttons[0];
+		const approveButton = buttons[1];
+		removeButton.addEventListener("click", () => {
+			const id = elem.getAttribute("info-id");
+			fetch("/remove/" + id, {
+				method: "POST",
+			}).then(() => {
+				elem.remove();
+			});
+		});
+		approveButton.addEventListener("click", () => {
+			const id = elem.getAttribute("info-id");
+			fetch("/approve/" + id, {
+				method: "POST",
+			}).then(() => {
+				elem.remove();
+			});
+		});
+	});
+</script>
+{% endblock %} {%block titleBlock%} Moderator Page {%endblock%}
