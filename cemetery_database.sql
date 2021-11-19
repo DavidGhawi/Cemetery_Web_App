@@ -20,4 +20,4 @@ CREATE TABLE IF NOT EXISTS `Information` (
   `Image`	TEXT NOT NULL
 );
 
-INSERT INTO 'Inforamtion'('Name', 'Date of birth', 'Date of death', 'Information', 'Latitude', 'Longitude', 'Image') VALUES ('', '', '', '', '')
+INSERT INTO 'Inforamtion'('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image') VALUES ('', '', '', '', '')
