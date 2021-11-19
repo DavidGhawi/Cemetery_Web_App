@@ -70,6 +70,27 @@ def approve(id):
     return "ok"
 
 
+@app.route("/add", methods=['GET', 'POST'])
+def add_render():
+    if request.method == 'GET':
+        return render_template('user_upload.html')
+    else:
+        name = request.form.get('name')
+        Dbirth = request.form.get('Dbirth')
+        Ddeath = request.form.get('Ddeath')
+        Information = request.form.get('Information')
+        Cemetery_section = request.form.get('Cemetery_section')
+        Grave_number = request.form.get('Grave_number')
+        Image = ""
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        c.execute("INSERT INTO Information('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image', 'Public') VALUES (?, ?, ?, ?, ?, ?, ?, ?);",
+                  (name, Dbirth, Ddeath, Information, Cemetery_section, Grave_number, Image, 0))
+        conn.commit()
+        conn.close()
+        return render_template('user_upload.html', message="Submitted data for review!")
+
+
 @app.route("/login", methods=['GET', 'POST'])
 def usersearch():
     if request.method == 'GET':
