@@ -1,0 +1,25 @@
+{%extends 'wireframe.html'%}
+
+
+{% block mainBlock%}
+<div class="form">
+    <form class="userUpload" method="post" action="">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value=""><br>
+        <label for="Dbirth">Date of birth:</label><br>
+        <input type="text" id="Dbirth" name="Dbirth" value=""><br>
+        <label for="Ddeath">Date of death:</label><br>
+        <input type="text" id="Ddeath" name="Ddeath" value=""><br>
+        <label for="Information">Information:</label><br>
+        <input type="text" id="Information" name="Information" value=""><br>
+        <label for="Cemetery_section">Cemetery section:</label><br>
+        <input type="text" id="Cemetery_section" name="Cemetery_section" value=""><br>
+        <label for="Grave_number">Grave number:</label><br>
+        <input type="text" id="Grave_number" name="Grave_number" value=""><br>
+        <input type="submit" value="Submit">
+
+
+
+    </form>
+</div>
+{%endblock%}
