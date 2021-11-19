@@ -5,9 +5,34 @@
 {%endblock%}
 
 {% block mainBlock%}
+<form id="myForm" onsubmit="return loadName()">
 Create Username:
-                  <input type = "text" name = "username" placeholder="Username..." ><br>
-                 Create Password:
-                  <input id = "psswrd" type = "text" name = "password" placeholder="Password..." ><br>
-                  <button type = "submit" id='mySubmit'> Submit </button>
+<input type = "text" name = "Username" placeholder="Username..." ><br>
+Create Password:
+<input id = "psswrd" type = "text" name = "Password" placeholder="Password..." ><br>
+<button type = "submit" id='mySubmit'> Submit </button>
+</form>
+
+<script>
+  function loadName() {
+    var firstName = document.forms["myForm"]["Username"].value;
+    var surname = document.forms["myForm"]["Password"].value;
+    params = 'Username='+Username+'&Password='+Password;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", '/signup', true); // true is asynchronous
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.onload = function() {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+        console.log(xhttp.responseText);
+        document.getElementById("txt").innerHTML = xhttp.responseText;
+      } else {
+        console.error(xhttp.statusText);
+      }
+    };
+    xhttp.send(params);
+    return false;
+  }
+
+</script>
+
 {%endblock%}
