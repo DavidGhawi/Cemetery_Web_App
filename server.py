@@ -16,10 +16,6 @@ if not os.path.exists(DATABASE):
 app = Flask(__name__)
 
 
-# @app.route("/login.", methods=['GET'])
-# def login():
-#     if request.method == 'GET':
-#         return render_template('Signin.html')
 
 
 @app.route("/signup", methods=['GET'])
@@ -33,19 +29,16 @@ def home():
     if request.method == 'GET':
         return render_template('Home_page.html')
 
-# @app.route("/home")
-# def redirectToStatic():
-#     print("Grab something from static (redirect)")
-#     return render_template("Wireframe.html")
+@app.route("/map", methods=['GET'])
+def map():
+    if request.method == 'GET':
+        return render_template('map_page.html')
 
-# @app.route('/templates/signup.html', methods = ["post"])
-# def admin():
-#     username = request.form.get('username')
-#     if username == "admin" and password == "admin":
-#         return render_template("Wireframe.html")
-#     else:
-#         message = "Wrong Username"
-#         return render_template("login_page.html")
+
+@app.route("/nodata", methods=['GET'])
+def nodata():
+    if request.method == 'GET':
+        return render_template('nodata.html')
 
 
 @app.route("/login", methods=['GET', 'POST'])
