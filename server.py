@@ -55,19 +55,22 @@ def usersearch():
     if request.method == 'POST':
         try:
             Username = request.form.get('username', default="Error")
-            print(Username)
+            Password = request.form.get('password', default="Error")
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
-            cur.execute("SELECT * FROM Login WHERE Username=?;", [Username])
+            cur.execute(
+                "SELECT * FROM Login WHERE Username=? AND Password=?;", [Username, Password])
             data = cur.fetchall()
-            print(data)
+            if len(data) > 0:
+                return redirect('/home')
+            else:
+                return redirect('/login')
         except Exception as e:
             print(e)
             print('there was an error')
             conn.close()
         finally:
             conn.close()
-            return str("its done")
             # return render_template('ListStudents.html', data = data)
 
 
@@ -79,7 +82,6 @@ def createuser():
         # rem: args for get form for post
         Username = request.form.get('Username', default="Error")
         Password = request.form.get('Password', default="Error")
-        print(Username)
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
