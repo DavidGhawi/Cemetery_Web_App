@@ -1,5 +1,7 @@
 import os
 import sqlite3
+import json
+import copy
 from flask import Flask, redirect, request, render_template, jsonify
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
@@ -12,6 +14,8 @@ if not os.path.exists(DATABASE):
     c.executescript(script)
     conn.commit()
     conn.close()
+
+mapconfig = json.load(open("mapconfig.json"))
 
 app = Flask(__name__)
 
@@ -139,6 +143,52 @@ def createuser():
         finally:
             conn.close()
             return msg
+
+
+@app.route("/api/map", methods=['GET'])
+def api_map():
+    mapdata = copy.deepcopy(mapconfig)
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    c.execute("SELECT ID,Name,'Date of birth','Date of death',Information,'Cemetery section','Grave number',Image,Latitude,Longitude FROM Information WHERE Public = 1 and Latitude NOT NULL and Longitude NOT NULL;")
+    data = c.fetchall()
+    for row in data:
+        mapdata['markers'].append({
+            "id": row[0],
+            "name": row[1],
+            "dob": row[2],
+            "dod": row[3],
+            "info": row[4],
+            "cs": row[5],
+            "gn": row[6],
+            "img": row[7],
+            "lat": row[8],
+            "lng": row[9]
+        })
+    conn.close()
+
+    return jsonify(mapdata)
+
+
+@app.route("/api/information/<id>", methods=['GET'])
+def api_information(id):
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    c.execute("SELECT Name,'Date of birth','Date of death',Information,'Cemetery section','Grave number',Image FROM Information WHERE ID = ?;", (id,))
+    data = c.fetchall()
+    conn.close()
+    infodata = []
+    for row in data:
+        infodata.append({
+            "name": row[0],
+            "dob": row[1],
+            "dod": row[2],
+            "info": row[3],
+            "cs": row[4],
+            "gn": row[5],
+            "img": row[6]
+        })
+    return jsonify(infodata)
 
 
 if __name__ == "__main__":
