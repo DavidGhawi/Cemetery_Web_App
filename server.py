@@ -175,19 +175,20 @@ def api_information(id):
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
     c.execute("SELECT Name,'Date of birth','Date of death',Information,'Cemetery section','Grave number',Image FROM Information WHERE ID = ?;", (id,))
-    data = c.fetchall()
+    data = c.fetchone()
     conn.close()
-    infodata = []
-    for row in data:
-        infodata.append({
-            "name": row[0],
-            "dob": row[1],
-            "dod": row[2],
-            "info": row[3],
-            "cs": row[4],
-            "gn": row[5],
-            "img": row[6]
-        })
+    infodata = {}
+    if data is not None:
+        infodata = {
+            "name": data[0],
+            "dob": data[1],
+            "dod": data[2],
+            "info": data[3],
+            "cs": data[4],
+            "gn": data[5],
+            "img": data[6]
+        }
+
     return jsonify(infodata)
 
 
