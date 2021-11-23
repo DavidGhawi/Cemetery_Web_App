@@ -1,32 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<link rel="stylesheet" type = "text/css" href = "/static/wireframe.css">
-  <link rel="stylesheet" type = "text/css" href = "/static/Home_styling.css">
-	<title> Title </title>
-</head>
-<body>
+{% extends 'wireframe.html' %}
 
-	<nav class = "navigation">
-  		<ul>
-    		<li>
-      			<a href="/">Home</a>
-    		</li>
-    		<li>
-      			<a href="/map">View Map</a>
-    		</li>
-    		<li>
-      			<a href="/form">Search Name</a>
-    		</li>
-    		<li>
-      			<a href="/login">Login</a>
-    		</li>
- 		 </ul>
-	</nav>
+{% block titleBlock %}
+St woolos Cemetery
+{%endblock%}
 
-	<header class = "header">
-	<h1 id = "headerContent"> St woolos Cemetery </h1>
-	</header>
+{% block mainBlock %}
+	<link rel="stylesheet" type = "text/css" href = "/static/Home_styling.css">
 
   <aside class = "sidebar">
     <h1>Facts about St Woolos Cemetery</h1>
@@ -83,32 +62,5 @@
 	      </div>
 	    </div
 		</section>
-
   </main>
-
-	<footer class = "footer">
-    footer
-    <button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
-	</footer>
-</body>
-</html>
-
-
-<script type="text/javascript">
-  var topbutton = document.getElementById("topBtn");
-
-  window.onscroll = function() {scrollFunction()};
-
-  function scrollFunction() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      topbutton.style.display = "block";
-    } else {
-      topbutton.style.display = "none";
-    }
-  }
-
-  function topFunction() {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
-</script>
+{%endblock%}
