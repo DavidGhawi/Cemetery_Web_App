@@ -1,73 +1,74 @@
+{%extends 'wireframe.html'%} {% block titleBlock%}
+<h1 id="headerContent">Find A Grave</h1>
 
-{%extends 'wireframe.html'%}
+{%endblock%} {% block mainBlock%}
 
-{% block titleBlock%}
-<h1 id = "headerContent"> Find A Grave </h1>
-
-{%endblock%}
-
-{% block mainBlock%}
-
-<img src="\static\st woolos cemetary.png" usemap="#image-map" class = "cemeteryMap">
+<img src="/static/st_woolos_cemetary.png" usemap="#image-map" class="cemeteryMap" />
 
 <map name="image-map">
-    <area id="COND01" alt="COND01" title="COND01" href="/nodata" coords="616,474,681,422" shape="rect">
-    <area id="COND02" alt="COND02" title="COND02" href="/nodata" coords="690,476,748,420" shape="rect">
-    <area id="COND03" alt="COND03" title="COND03" href="/nodata" coords="757,474,833,420" shape="rect">
-    <area id="COND04" alt="COND04" title="COND04" href="/nodata" coords="616,550,681,489" shape="rect">
-    <area id="COND05" alt="COND05" title="COND05" href="/nodata" coords="687,554,748,487" shape="rect">
-    <area id="COND06" alt="COND06" title="COND06" href="/nodata" coords="757,552,835,487" shape="rect">
-    <area id="COND07" alt="COND07" title="COND07" href="/nodata" coords="616,635,679,565" shape="rect">
-    <area id="COND08" alt="COND08" title="COND08" href="/nodata" coords="690,637,748,563" shape="rect">
-    <area id="COND09" alt="COND09" title="COND09" href="/nodata " coords="757,635,833,565" shape="rect">
-    <area id="DEF10"  alt="DEF10" title="DEF10" href="/nodata" coords="614,720,681,648" shape="rect">
-    <area id="COND26" alt="COND26" title="COND26" href="/nodata" coords="690,722,750,646" shape="rect">
-    <area id="COND27" alt="COND27" title="COND27" href="/nodata" coords="755,720,830,648" shape="rect">
-    <area id="EF33COND33" alt="EF33COND33" title="EF33COND33" href="/nodata" coords="616,733,676,805" shape="rect">
-    <area id="CONFCD84" alt="CONFCD84" title="CONFCD84" href="/nodata" coords="683,804,748,733" shape="rect">
-    <area id="COND81" alt="COND81" title="COND81" href="/nodata" coords="757,804,828,733" shape="rect">
-    <area id="COND31" alt="COND31" title="COND31" href="/nodata" coords="614,890,676,814" shape="rect">
-    <area id="COND83" alt="COND83" title="COND83" href="/nodata" coords="683,890,750,814" shape="rect">
-    <area id="RCD31" alt="RCD31" title="RCD31" href="/nodata" coords="759,889,826,814" shape="rect">
-    <area id="COND29" alt="COND29" title="COND29" href="/nodata" coords="614,974,674,900" shape="rect">
-    <area id="D34ext" alt="D34ext" title="D34ext" href="/nodata" coords="681,974,750,898" shape="rect">
-    <area id="COND82" alt="COND82" title="COND82" href="/nodata" coords="758,971,825,898" shape="rect">
-    <area id="RCD27" alt="RCD27" title="RCD27" href="/nodata" coords="843,474,908,421" shape="rect">
-    <area id="RCD26" alt="RCD26" title="RCD26" href="/nodata" coords="919,477,973,419" shape="rect">
-    <area id="RCD24" alt="RCD24" title="RCD24" href="/nodata" coords="980,479,1056,421" shape="rect">
-    <area id="RCD28" alt="RCD28" title="RCD28" href="/nodata" coords="841,551,910,488" shape="rect">
-    <area id="RCD29" alt="RCD29" title="RCD29" href="/nodata" coords="919,551,971,486" shape="rect">
-    <area id="RCD25" alt="RCD25" title="RCD25" href="/nodata" coords="978,553,1060,486" shape="rect">
-    <area id="COND30" alt="COND30" title="COND30" href="/nodata" coords="843,633,911,560" shape="rect">
-    <area id="FCD21" alt="FCD21" title="FCD21" href="/nodata" coords="919,631,971,560" shape="rect">
-    <area id="FCD18" alt="FCD18" title="FCD18" href="/nodata" coords="980,633,1060,562" shape="rect">
-    <area id="COND28" alt="COND28" title="COND28" href="/nodata" coords="843,723,910,645" shape="rect">
-    <area id="COND32" alt="COND32" title="COND32" href="/nodata" coords="921,721,971,644" shape="rect">
-    <area id="FCD13" alt="FCD13" title="FCD13" href="/nodata" coords="980,723,1060,644" shape="rect">
-    <area id="RCD30" alt="RCD30" title="RCD30" href="/nodata" coords="843,804,910,732" shape="rect">
-    <area id="FCD24" alt="FCD24" title="FCD24" href="/nodata" coords="919,804,973,730" shape="rect">
-    <area id="FCD12" alt="FCD12" title="FCD12" href="/nodata" coords="977,802,1058,730" shape="rect">
-    <area id="FCD23" alt="FCD23" title="FCD23" href="/nodata" coords="837,888,911,812" shape="rect">
-    <area id="FCD22" alt="FCD22" title="FCD22" href="/nodata" coords="921,889,971,812" shape="rect">
-    <area id="FCD11" alt="FCD11" title="FCD11" href="/nodata" coords="977,886,1060,813" shape="rect">
-    <area id="FCD20" alt="FCD20" title="FCD20" href="/nodata" coords="837,972,913,896" shape="rect">
-    <area id="FCD19" alt="FCD19" title="FCD19" href="/nodata" coords="919,972,969,898" shape="rect">
-    <area id="FCD10" alt="FCD10" title="FCD10" href="/nodata" coords="975,970,1056,896" shape="rect">
-    <area id="RCD22" alt="RCD22" title="RCD22" href="/nodata" coords="1067,477,1138,419" shape="rect">
-    <area id="RCD23" alt="RCD23" title="RCD23" href="/nodata" coords="1069,551,1139,488" shape="rect">
-    <area id="FCD17" alt="FCD17" title="FCD17" href="/nodata" coords="1069,632,1136,560" shape="rect">
-    <area id="FCD14" alt="FCD14" title="FCD14" href="/nodata" coords="1067,721,1138,645" shape="rect">
-    <area id="FCD09" alt="FCD09" title="FCD09" href="/nodata" coords="1069,806,1139,732" shape="rect">
-    <area id="FCD08" alt="FCD08" title="FCD08" href="/nodata" coords="1069,887,1139,813" shape="rect">
-    <area id="RCD17" alt="RCD17" title="RCD17" href="/nodata" coords="1147,479,1212,421" shape="rect">
-    <area id="RCD18" alt="RCD18" title="RCD18" href="/nodata" coords="1147,553,1214,488" shape="rect">
-    <area id="FCD16" alt="FCD16" title="FCD16" href="/nodata" coords="1145,635,1215,559" shape="rect">
-    <area id="FCD15" alt="FCD15" title="FCD15" href="/nodata" coords="1147,720,1212,644" shape="rect">
-    <area id="FCD07" alt="FCD07" title="FCD07" href="/nodata" coords="1147,804,1212,730" shape="rect">
-    <area id="FCD06" alt="FCD06" title="FCD06" href="/nodata" coords="1147,889,1215,813" shape="rect">
-    <area id="FCD05" alt="FCD05" title="FCD05" href="/nodata" coords="1145,973,1215,897" shape="rect">
-    <area id="COND27" alt="COND27" title="COND27" href="/nodata" coords="755,720,830,648" shape="rect">
-    <area id= "CONRCD117" alt="CONRCD117" title="CONRCD117" href="/nodata" coords="243,411,187,494,140,489,97,396,108,436,120,458,111,362,102,378,99,413,120,346,133,326" shape="poly">
-
+	<area id="COND01" alt="COND01" title="COND01" href="/nodata" coords="616,474,681,422" shape="rect" />
+	<area id="COND02" alt="COND02" title="COND02" href="/nodata" coords="690,476,748,420" shape="rect" />
+	<area id="COND03" alt="COND03" title="COND03" href="/nodata" coords="757,474,833,420" shape="rect" />
+	<area id="COND04" alt="COND04" title="COND04" href="/nodata" coords="616,550,681,489" shape="rect" />
+	<area id="COND05" alt="COND05" title="COND05" href="/nodata" coords="687,554,748,487" shape="rect" />
+	<area id="COND06" alt="COND06" title="COND06" href="/nodata" coords="757,552,835,487" shape="rect" />
+	<area id="COND07" alt="COND07" title="COND07" href="/nodata" coords="616,635,679,565" shape="rect" />
+	<area id="COND08" alt="COND08" title="COND08" href="/nodata" coords="690,637,748,563" shape="rect" />
+	<area id="COND09" alt="COND09" title="COND09" href="/nodata " coords="757,635,833,565" shape="rect" />
+	<area id="DEF10" alt="DEF10" title="DEF10" href="/nodata" coords="614,720,681,648" shape="rect" />
+	<area id="COND26" alt="COND26" title="COND26" href="/nodata" coords="690,722,750,646" shape="rect" />
+	<area id="COND27" alt="COND27" title="COND27" href="/nodata" coords="755,720,830,648" shape="rect" />
+	<area id="EF33COND33" alt="EF33COND33" title="EF33COND33" href="/nodata" coords="616,733,676,805" shape="rect" />
+	<area id="CONFCD84" alt="CONFCD84" title="CONFCD84" href="/nodata" coords="683,804,748,733" shape="rect" />
+	<area id="COND81" alt="COND81" title="COND81" href="/nodata" coords="757,804,828,733" shape="rect" />
+	<area id="COND31" alt="COND31" title="COND31" href="/nodata" coords="614,890,676,814" shape="rect" />
+	<area id="COND83" alt="COND83" title="COND83" href="/nodata" coords="683,890,750,814" shape="rect" />
+	<area id="RCD31" alt="RCD31" title="RCD31" href="/nodata" coords="759,889,826,814" shape="rect" />
+	<area id="COND29" alt="COND29" title="COND29" href="/nodata" coords="614,974,674,900" shape="rect" />
+	<area id="D34ext" alt="D34ext" title="D34ext" href="/nodata" coords="681,974,750,898" shape="rect" />
+	<area id="COND82" alt="COND82" title="COND82" href="/nodata" coords="758,971,825,898" shape="rect" />
+	<area id="RCD27" alt="RCD27" title="RCD27" href="/nodata" coords="843,474,908,421" shape="rect" />
+	<area id="RCD26" alt="RCD26" title="RCD26" href="/nodata" coords="919,477,973,419" shape="rect" />
+	<area id="RCD24" alt="RCD24" title="RCD24" href="/nodata" coords="980,479,1056,421" shape="rect" />
+	<area id="RCD28" alt="RCD28" title="RCD28" href="/nodata" coords="841,551,910,488" shape="rect" />
+	<area id="RCD29" alt="RCD29" title="RCD29" href="/nodata" coords="919,551,971,486" shape="rect" />
+	<area id="RCD25" alt="RCD25" title="RCD25" href="/nodata" coords="978,553,1060,486" shape="rect" />
+	<area id="COND30" alt="COND30" title="COND30" href="/nodata" coords="843,633,911,560" shape="rect" />
+	<area id="FCD21" alt="FCD21" title="FCD21" href="/nodata" coords="919,631,971,560" shape="rect" />
+	<area id="FCD18" alt="FCD18" title="FCD18" href="/nodata" coords="980,633,1060,562" shape="rect" />
+	<area id="COND28" alt="COND28" title="COND28" href="/nodata" coords="843,723,910,645" shape="rect" />
+	<area id="COND32" alt="COND32" title="COND32" href="/nodata" coords="921,721,971,644" shape="rect" />
+	<area id="FCD13" alt="FCD13" title="FCD13" href="/nodata" coords="980,723,1060,644" shape="rect" />
+	<area id="RCD30" alt="RCD30" title="RCD30" href="/nodata" coords="843,804,910,732" shape="rect" />
+	<area id="FCD24" alt="FCD24" title="FCD24" href="/nodata" coords="919,804,973,730" shape="rect" />
+	<area id="FCD12" alt="FCD12" title="FCD12" href="/nodata" coords="977,802,1058,730" shape="rect" />
+	<area id="FCD23" alt="FCD23" title="FCD23" href="/nodata" coords="837,888,911,812" shape="rect" />
+	<area id="FCD22" alt="FCD22" title="FCD22" href="/nodata" coords="921,889,971,812" shape="rect" />
+	<area id="FCD11" alt="FCD11" title="FCD11" href="/nodata" coords="977,886,1060,813" shape="rect" />
+	<area id="FCD20" alt="FCD20" title="FCD20" href="/nodata" coords="837,972,913,896" shape="rect" />
+	<area id="FCD19" alt="FCD19" title="FCD19" href="/nodata" coords="919,972,969,898" shape="rect" />
+	<area id="FCD10" alt="FCD10" title="FCD10" href="/nodata" coords="975,970,1056,896" shape="rect" />
+	<area id="RCD22" alt="RCD22" title="RCD22" href="/nodata" coords="1067,477,1138,419" shape="rect" />
+	<area id="RCD23" alt="RCD23" title="RCD23" href="/nodata" coords="1069,551,1139,488" shape="rect" />
+	<area id="FCD17" alt="FCD17" title="FCD17" href="/nodata" coords="1069,632,1136,560" shape="rect" />
+	<area id="FCD14" alt="FCD14" title="FCD14" href="/nodata" coords="1067,721,1138,645" shape="rect" />
+	<area id="FCD09" alt="FCD09" title="FCD09" href="/nodata" coords="1069,806,1139,732" shape="rect" />
+	<area id="FCD08" alt="FCD08" title="FCD08" href="/nodata" coords="1069,887,1139,813" shape="rect" />
+	<area id="RCD17" alt="RCD17" title="RCD17" href="/nodata" coords="1147,479,1212,421" shape="rect" />
+	<area id="RCD18" alt="RCD18" title="RCD18" href="/nodata" coords="1147,553,1214,488" shape="rect" />
+	<area id="FCD16" alt="FCD16" title="FCD16" href="/nodata" coords="1145,635,1215,559" shape="rect" />
+	<area id="FCD15" alt="FCD15" title="FCD15" href="/nodata" coords="1147,720,1212,644" shape="rect" />
+	<area id="FCD07" alt="FCD07" title="FCD07" href="/nodata" coords="1147,804,1212,730" shape="rect" />
+	<area id="FCD06" alt="FCD06" title="FCD06" href="/nodata" coords="1147,889,1215,813" shape="rect" />
+	<area id="FCD05" alt="FCD05" title="FCD05" href="/nodata" coords="1145,973,1215,897" shape="rect" />
+	<area id="COND27" alt="COND27" title="COND27" href="/nodata" coords="755,720,830,648" shape="rect" />
+	<area
+		id="CONRCD117"
+		alt="CONRCD117"
+		title="CONRCD117"
+		href="/nodata"
+		coords="243,411,187,494,140,489,97,396,108,436,120,458,111,362,102,378,99,413,120,346,133,326"
+		shape="poly"
+	/>
 </map>
 {%endblock%}
