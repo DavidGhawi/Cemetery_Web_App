@@ -145,6 +145,39 @@ def createuser():
             return msg
 
 
+@app.route("/Search", methods=['GET', 'POST'])
+def gravesearch():
+    if request.method == 'GET':
+        return render_template('Forum_page.html')
+    if request.method == 'POST':
+        try:
+            Name = request.form.get('Name', default="Error")
+            conn = sqlite3.connect(DATABASE)
+            cur = conn.cursor()
+            print(Name)
+            cur.execute(
+                "SELECT * FROM Information WHERE Name = ?;", (Name,))
+            print("it worked")
+            data = cur.fetchall()
+            print(data)
+            if len(data) > 0:
+                return redirect('/login')
+            else:
+                return redirect('/nodata')
+        except Exception as e:
+            print(e)
+            print('there was an error')
+            conn.close()
+        finally:
+            conn.close()
+
+
+@app.route("/form", methods=['GET'])
+def form():
+    if request.method == 'GET':
+        return render_template("Forum_page.html")
+
+
 @app.route("/api/map", methods=['GET'])
 def api_map():
     mapdata = copy.deepcopy(mapconfig)
