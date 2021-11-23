@@ -225,5 +225,10 @@ def api_information(id):
     return jsonify(infodata)
 
 
+@app.route("/livemap", methods=['GET'])
+def livemap():
+    return render_template('geomap.html')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
