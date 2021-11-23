@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS `Login` (
   `Password`	TEXT NOT NULL
 );
 
-INSERT INTO 'Login'('Username','Password') VALUES ('admin','admin');
+INSERT INTO 'Login'('Username','Password') VALUES 
+('admin','pbkdf2:sha256:260000$QVmjB5L1yPtuO6w8$79557af45499cb64aa6c329956ff522109098aee71aa8c2685620d9e1ca943ff');
 
 CREATE TABLE IF NOT EXISTS `Information` (
   `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
