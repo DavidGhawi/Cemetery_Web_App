@@ -26,7 +26,7 @@ def signup():
         return render_template('signup.html')
 
 
-@app.route("/home", methods=['GET'])
+@app.route("/", methods=['GET'])
 def home():
     if request.method == 'GET':
         return render_template('Home_page.html')
@@ -109,7 +109,7 @@ def usersearch():
                 "SELECT * FROM Login WHERE Username=? AND Password=?;", [Username, Password])
             data = cur.fetchall()
             if len(data) > 0:
-                return redirect('/home')
+                return redirect('/')
             else:
                 return render_template('Signin.html', message="Wrong Username or Password")
         except Exception as e:
