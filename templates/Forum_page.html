@@ -1,0 +1,85 @@
+<html>
+
+
+
+<title>N/A</title>
+
+</head>
+
+
+
+<body>
+
+<h1>forum page</h1>
+
+<p>Please type the person who you're looking for in the box below</p>
+
+
+
+
+<table class="msgbox">
+
+<tbody ng-repeat="u in users" class="msgcnt">
+
+<tr>
+
+<td class="msgparam">🙍Name:</td><td class="msgval">{{name}}</td>
+
+<td class="msgparam">🗺️Country:</td><td class="msgval"> {{country}} </td>
+
+<td class="msgparam">🎁Age: </td><td class="msgval">{{age }}</td>
+
+<td class="msgparam">📅Date:</td><td class="msgval">{.date}}</td>
+
+
+
+
+</tr>
+
+<tr>
+
+
+
+</tr>
+
+
+
+</tr>
+
+</tbody>
+
+</table>
+
+<form ng-submit="messagenew()" >
+
+  <pre>{{error}}</pre>
+
+  <label>Name:</label><br>
+
+  <input type="text" value="John" ng-model="name"><br>
+
+  <label>Country:</label><br>
+
+  <input type="text" value="Testin" ng-model="country"><br>
+
+  <label>Age:</label><br>
+
+  <input type="text" value="30" ng-model="age"><br>
+
+
+
+  <br>
+
+  <input type="submit" value="Search For Person">
+
+</form>
+
+</div>
+
+
+
+
+
+</body>
+
+</html>
