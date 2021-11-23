@@ -102,7 +102,7 @@ def usersearch():
         return render_template('Signin.html')
     if request.method == 'POST':
         try:
-            Username = request.form.get('username', default="Error")
+            Username = request.form.get('username', default="Error").lower()
             Password = request.form.get('password', default="Error")
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
@@ -129,23 +129,29 @@ def createuser():
         return render_template('signup.html')
     if request.method == 'POST':
         # rem: args for get form for post
-        Username = request.form.get('Username', default="Error")
+        Username = request.form.get('Username', default="Error").lower()
         Password = request.form.get('Password', default="Error")
         Password = generate_password_hash(Password)
-        try:
-            conn = sqlite3.connect(DATABASE)
-            cur = conn.cursor()
-            cur.execute("INSERT INTO Login ('Username', 'Password')\
-						VALUES (?,?)", (Username, Password))
+        conn = sqlite3.connect(DATABASE)
+        cur = conn.cursor()
+        cur.execute("INSERT INTO Login ('Username', 'Password')\
+					VALUES (?,?)", (Username, Password))
 
-            conn.commit()
-            msg = "Record successfully added"
-        except:
-            conn.rollback()
-            msg = "error in insert operation"
-        finally:
-            conn.close()
-            return msg
+        conn = sqlite3.connect(DATABASE)
+        cur = conn.cursor()
+
+        count = cur.execute(
+            "SELECT COUNT (*) FROM Login WHERE Username = ?", (Username,)).fetchone()[0]
+
+        if count > 0:
+            return render_template('signup.html', message="Username already registered.")
+
+        cur.execute("INSERT INTO Login ('Username', 'Password')\
+					VALUES (?,?)", (Username, Password))
+
+        conn.commit()
+        conn.close()
+        return redirect("/login")
 
 
 @app.route("/Search", methods=['GET', 'POST'])
