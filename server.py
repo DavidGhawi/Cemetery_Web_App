@@ -192,7 +192,7 @@ def api_map():
     mapdata = copy.deepcopy(mapconfig)
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
-    c.execute("SELECT ID,Name,'Date of birth','Date of death',Information,'Cemetery section','Grave number',Image,Latitude,Longitude FROM Information WHERE Public = 1 and Latitude NOT NULL and Longitude NOT NULL;")
+    c.execute("SELECT [ID],[Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image],[Latitude],[Longitude] FROM Information WHERE Public = 1 and Latitude NOT NULL and Longitude NOT NULL;")
     data = c.fetchall()
     for row in data:
         mapdata['markers'].append({
