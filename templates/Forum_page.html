@@ -1,7 +1,6 @@
-<html>
+{%extends 'wireframe.html'%}
 
-
-
+<head>
 <title>N/A</title>
 
 </head>
@@ -10,62 +9,25 @@
 
 <body>
 
-<h1>forum page</h1>
+{% block titleBlock%}
+<h1 id = "headerContent"> Search A name </h1>
+{%endblock%}
 
-<p>Please type the person who you're looking for in the box below</p>
-
-
-
-
-<table class="msgbox">
-
-<tbody ng-repeat="u in users" class="msgcnt">
-
-<tr>
-
-<td class="msgparam">🙍Name:</td><td class="msgval">{{name}}</td>
-
-<td class="msgparam">🗺️Country:</td><td class="msgval"> {{country}} </td>
-
-<td class="msgparam">🎁Age: </td><td class="msgval">{{age }}</td>
-
-<td class="msgparam">📅Date:</td><td class="msgval">{.date}}</td>
+{% block mainBlock%}
+<p id = "search">Please type the person who you're looking for in the box below</p>
 
 
 
 
-</tr>
-
-<tr>
 
 
-
-</tr>
-
-
-
-</tr>
-
-</tbody>
-
-</table>
-
-<form ng-submit="messagenew()" >
+<form name = "searchForm" onsubmit = "return loadName()" class = "searchForm"  >
 
   <pre>{{error}}</pre>
 
-  <label>Name:</label><br>
+  <label>Search Full Name:</label><br>
 
-  <input type="text" value="John" ng-model="name"><br>
-
-  <label>Country:</label><br>
-
-  <input type="text" value="Testin" ng-model="country"><br>
-
-  <label>Age:</label><br>
-
-  <input type="text" value="30" ng-model="age"><br>
-
+  <input type="text" placeholder="Name..." name ="Name"><br>
 
 
   <br>
@@ -74,12 +36,26 @@
 
 </form>
 
-</div>
-
-
-
 
 
 </body>
 
-</html>
+<script>
+   function loadName() {
+      var Name = document.forms["searchForm"]["Name"].value;
+
+        params = 'Name='+encodeURIComponent(Name);
+        fetch("/Search", {
+          method: "POST",
+          body: params,
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          }
+        }).then(resp => resp.text())
+        .then(text => {
+          document.getElementById("txt").innerHTML = text;
+        });
+      return false;
+    }
+</script>
+{%endblock%}
