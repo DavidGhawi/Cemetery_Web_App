@@ -7,37 +7,12 @@
   height: 100%;
   margin-right: 5px;
   text-align: center;
+  background-color: #F5F5DC;
+  box-shadow: 2px 2px 5px black;
 }
 
 .sidebar h1 {
   text-decoration: underline
-}
-
-.section1 h1{
-  text-align: center;
-  text-decoration: underline;
-}
-
-.section1 p{
-  text-align: center;
-  font-size: 18px;
-}
-
-.section2 p{
-  text-align: center;
-  font-size: 18px;
-}
-
-.cemetery_img1 {
-  float: left;
-  width: 200px;
-  height: 200px;
-}
-
-.cemetery_img2 {
-  float: right;
-  width: 200px;
-  height: 200px;
 }
 
 #topBtn {
@@ -58,4 +33,60 @@
 
 #topBtn:hover {
   background-color: #555;
+}
+
+.cemetery_img1 {
+  width: 450px;
+  height: 350px;
+}
+
+.cemetery_img2 {
+  width: 450px;
+  height: 350px;
+}
+
+.flip-card {
+  background-color: transparent;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  left:350px;
+  top:20px;
+  width: 450px;
+  height: 350px;
+  perspective: 1000px;
+  font-size: 18px;
+}
+
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 1px 1px 3px black;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+  position:absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.flip-card-front {
+  background-color: #bbb;
+  color: black;
+}
+
+.flip-card-back {
+  background-color: #F5F5DC;
+  color: black;
+  transform: rotateY(180deg);
 }
