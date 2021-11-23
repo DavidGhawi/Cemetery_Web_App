@@ -1,13 +1,10 @@
 {%extends 'wireframe.html'%}
 
-<head>
-<title>N/A</title>
-
-</head>
 
 
 
-<body>
+
+
 
 {% block titleBlock%}
 <h1 id = "headerContent"> Search A name </h1>
@@ -21,41 +18,48 @@
 
 
 
-<form name = "searchForm" onsubmit = "return loadName()" class = "searchForm"  >
+<form name = "searchForm" onsubmit = "return loadName()" class = "myForm"  >
 
   <pre>{{error}}</pre>
 
   <label>Search Full Name:</label><br>
 
   <input type="text" placeholder="Name..." name ="Name"><br>
-
+ 
 
   <br>
 
-  <input type="submit" value="Search For Person">
+  <button type = "submit" id='mySubmit'> Search Name </button>
 
 </form>
 
 
 
-</body>
+
+
+
+
+
 
 <script>
    function loadName() {
       var Name = document.forms["searchForm"]["Name"].value;
 
-        params = 'Name='+encodeURIComponent(Name);
-        fetch("/Search", {
-          method: "POST",
-          body: params,
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-          }
-        }).then(resp => resp.text())
-        .then(text => {
-          document.getElementById("txt").innerHTML = text;
-        });
-      return false;
-    }
+        params = 'Name='+Name;
+       var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", '/Search', true); // true is asynchronous
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.onload = function() {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+        console.log(xhttp.responseText);
+        document.getElementById("txt").innerHTML = xhttp.responseText;
+      } else {
+        console.error(xhttp.statusText);
+      }
+    };
+    xhttp.send(params);
+    return false;
+  }
 </script>
 {%endblock%}
+
