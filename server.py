@@ -3,6 +3,7 @@ import sqlite3
 import json
 import copy
 from flask import Flask, redirect, request, render_template, jsonify
+from werkzeug.security import generate_password_hash, check_password_hash
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 DATABASE = 'cemetery_db.db'
@@ -106,12 +107,13 @@ def usersearch():
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
             cur.execute(
-                "SELECT * FROM Login WHERE Username=? AND Password=?;", [Username, Password])
-            data = cur.fetchall()
-            if len(data) > 0:
-                return redirect('/')
-            else:
-                return render_template('Signin.html', message="Wrong Username or Password")
+                "SELECT Password FROM Login WHERE Username=?;", [Username])
+            data = cur.fetchone()
+            if data is not None:
+                if check_password_hash(data[0], Password):
+                    return redirect('/')
+
+            return render_template('Signin.html', message="Wrong Username or Password")
         except Exception as e:
             print(e)
             print('there was an error')
@@ -129,6 +131,7 @@ def createuser():
         # rem: args for get form for post
         Username = request.form.get('Username', default="Error")
         Password = request.form.get('Password', default="Error")
+        Password = generate_password_hash(Password)
         try:
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
