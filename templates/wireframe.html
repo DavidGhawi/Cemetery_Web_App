@@ -9,7 +9,7 @@
 		<nav class="navigation">
 			<ul>
 				<li>
-					<a href="/">Home</a>
+					<a href="/home">Home</a>
 				</li>
 				<li>
 					<a href="/map">Plot Map</a>
@@ -33,23 +33,31 @@
 		{%block mainBlock%} {%endblock%}
 
 		<footer class="footer">
-			<button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
-		</footer>
+      
+        <form class = "form" method = "post" style="background-color:#ddd;" >
+          <h1>Give Some Feedback!</h1>
+          <section class="name">
+            <label for="name">What is your name</label>
+                  <input type="text" name="name" id="name">
+          </section>
+          <hr>
+          <section class="email">
+            <label for="email">Enter your email: </label>
+            <input type="text" name="email" id="email">
+          </section>
+         
+          <hr>
+          <section class="feedback  ">
+            <label for="feedback"> <h3> Leave us a message</h3></label>
+            <input type="text" name="comments" id="comments">
+            <br>
+            <p> Our Email: Definitely_A_Real_Email@TrustUs.com <p>
+            <input type="submit" value="Submit">
+            <br>
+
+          </section>
+        </form>
+          <p id="contact"> Contact us </p>
+    </footer>
 	</body>
-	<script type="text/javascript">
-	  var topbutton = document.getElementById("topBtn");
-
-	  window.onscroll = () => {
-	    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-	      topbutton.style.display = "block";
-	    } else {
-	      topbutton.style.display = "none";
-	    }
-	  }
-
-	  function topFunction() {
-	    document.body.scrollTop = 0;
-	    document.documentElement.scrollTop = 0;
-	  }
-	</script>
 </html>
