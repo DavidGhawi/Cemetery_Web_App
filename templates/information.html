@@ -1,0 +1,15 @@
+{%extends 'wireframe.html'%} {%block mainBlock%}
+<div class="center">
+	<h1>{{ infodata.name }}</h1>
+	<img
+		src="{{ infodata.img or '/static/unknown-avatar.svg' }}"
+		alt="Picture of {{ infodata.name }}"
+		style="width: 25vw; height: 100%"
+	/>
+	<p>Born on: {{ infodata.dob }}</p>
+	<p>Died on: {{ infodata.dod }}</p>
+	<p>Cemetery Section: {{ infodata.cs }}</p>
+	<p>Grave Number: {{ infodata.gn }}</p>
+	<p style="white-space: pre-wrap">{{ infodata.info }}</p>
+</div>
+{%endblock%} {% block titleBlock%} Information {%endblock%}

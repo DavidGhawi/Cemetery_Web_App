@@ -216,7 +216,7 @@ def api_map():
 def api_information(id):
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
-    c.execute("SELECT Name,'Date of birth','Date of death',Information,'Cemetery section','Grave number',Image FROM Information WHERE ID = ?;", (id,))
+    c.execute("SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE ID = ?;", (id,))
     data = c.fetchone()
     conn.close()
     infodata = {}
@@ -237,6 +237,27 @@ def api_information(id):
 @app.route("/livemap", methods=['GET'])
 def livemap():
     return render_template('geomap.html')
+
+
+@app.route("/information/<id>", methods=['GET'])
+def information(id):
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    c.execute("SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE ID = ?;", (id,))
+    data = c.fetchone()
+    conn.close()
+    if data is not None:
+        return render_template('information.html', infodata={
+            "name": data[0],
+            "dob": data[1],
+            "dod": data[2],
+            "info": data[3],
+            "cs": data[4],
+            "gn": data[5],
+            "img": data[6]
+        })
+    else:
+        return render_template('nodata.html')
 
 
 if __name__ == "__main__":

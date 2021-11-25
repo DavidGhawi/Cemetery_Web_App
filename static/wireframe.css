@@ -157,3 +157,9 @@ html {
 #topBtn :hover {
 	background-color: #555;
 }
+
+.center {
+	text-align: center;
+	width: 50%;
+	margin: auto;
+}
