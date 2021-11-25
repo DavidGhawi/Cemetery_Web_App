@@ -27,7 +27,7 @@ def signup():
         return render_template('signup.html')
 
 
-@app.route("/", methods=['GET'])
+@app.route("/home", methods=['GET'])
 def home():
     if request.method == 'GET':
         return render_template('Home_page.html')
@@ -111,7 +111,7 @@ def usersearch():
             data = cur.fetchone()
             if data is not None:
                 if check_password_hash(data[0], Password):
-                    return redirect('/')
+                    return render_template('user_upload.html')
 
             return render_template('Signin.html', message="Wrong Username or Password")
         except Exception as e:
@@ -135,7 +135,7 @@ def createuser():
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
         cur.execute("INSERT INTO Login ('Username', 'Password')\
-					VALUES (?,?)", (Username, Password))
+                    VALUES (?,?)", (Username, Password))
 
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
@@ -147,30 +147,38 @@ def createuser():
             return render_template('signup.html', message="Username already registered.")
 
         cur.execute("INSERT INTO Login ('Username', 'Password')\
-					VALUES (?,?)", (Username, Password))
+                    VALUES (?,?)", (Username, Password))
 
         conn.commit()
         conn.close()
         return redirect("/login")
 
 
-@app.route("/Search", methods=['GET', 'POST'])
+
+
+@app.route("/form", methods=['GET', 'POST'])
 def gravesearch():
     if request.method == 'GET':
         return render_template('Forum_page.html')
     if request.method == 'POST':
+        name = ""
         try:
             Name = request.form.get('Name', default="Error")
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
-            print(Name)
-            cur.execute(
-                "SELECT * FROM Information WHERE Name = ?;", (Name,))
-            print("it worked")
-            data = cur.fetchall()
-            print(data)
-            if len(data) > 0:
-                return redirect('/login')
+            data = cur.execute("SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE Public = 1 and Name = ?;", (Name,))
+            for i in data:
+                name = i[0]
+                DoB = i[1]
+                DoD = i[2]
+                Info = i[3]
+                Csect = i[4]
+                Gsect = i[5]
+                Img = i[6]
+
+            if len(name) > 0:
+                print("yay")
+                return render_template("Information_Page.html", name = name, DoB = DoB, DoD = DoD, Info = Info, Csect = Csect, Gsect = Gsect, Img = Img)
             else:
                 return redirect('/nodata')
         except Exception as e:
@@ -180,11 +188,37 @@ def gravesearch():
         finally:
             conn.close()
 
-
-@app.route("/form", methods=['GET'])
-def form():
+@app.route("/plots", methods=['GET', 'POST'])
+def plots():
     if request.method == 'GET':
-        return render_template("Forum_page.html")
+        return render_template('plots.html')
+    if request.method == 'POST':
+        try:
+            print ("hi")
+            plot = request.form.get('Name', default="Error")
+            conn = sqlite3.connect(DATABASE)
+            cur = conn.cursor()
+            cur.execute("SELECT [Name], [ID], [Grave number] FROM Information WHERE Public = 1 and [Cemetery section] = ?;", (plot,))
+            data = cur.fetchall()
+            print("data")
+            if len(data) > 0:
+                print("yay")
+                return render_template("plots.html", data = data)
+            else:
+                return redirect('/nodata')
+        except Exception as e:
+            print(e)
+            print('there was an error')
+            conn.close()
+        finally:
+            conn.close()
+
+@app.route("/infoPage", methods=['GET'])
+def infoPage():
+    if request.method == 'GET':
+        return render_template("Information_Page.html")
+
+
 
 
 @app.route("/api/map", methods=['GET'])
@@ -216,7 +250,7 @@ def api_map():
 def api_information(id):
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
-    c.execute("SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE ID = ?;", (id,))
+    c.execute("SELECT Name,'Date of birth','Date of death',Information,'Cemetery section','Grave number',Image FROM Information WHERE ID = ?;", (id,))
     data = c.fetchone()
     conn.close()
     infodata = {}
@@ -237,27 +271,6 @@ def api_information(id):
 @app.route("/livemap", methods=['GET'])
 def livemap():
     return render_template('geomap.html')
-
-
-@app.route("/information/<id>", methods=['GET'])
-def information(id):
-    conn = sqlite3.connect(DATABASE)
-    c = conn.cursor()
-    c.execute("SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE ID = ?;", (id,))
-    data = c.fetchone()
-    conn.close()
-    if data is not None:
-        return render_template('information.html', infodata={
-            "name": data[0],
-            "dob": data[1],
-            "dod": data[2],
-            "info": data[3],
-            "cs": data[4],
-            "gn": data[5],
-            "img": data[6]
-        })
-    else:
-        return render_template('nodata.html')
 
 
 if __name__ == "__main__":
