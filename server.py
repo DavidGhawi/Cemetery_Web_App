@@ -111,7 +111,10 @@ def usersearch():
             data = cur.fetchone()
             if data is not None:
                 if check_password_hash(data[0], Password):
-                    return redirect('/')
+                    if Username == "admin":
+                        return redirect("/moderator")
+                    else:
+                        return redirect('/add')
 
             return render_template('Signin.html', message="Wrong Username or Password")
         except Exception as e:
@@ -135,7 +138,7 @@ def createuser():
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
         cur.execute("INSERT INTO Login ('Username', 'Password')\
-					VALUES (?,?)", (Username, Password))
+                    VALUES (?,?)", (Username, Password))
 
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
@@ -147,14 +150,14 @@ def createuser():
             return render_template('signup.html', message="Username already registered.")
 
         cur.execute("INSERT INTO Login ('Username', 'Password')\
-					VALUES (?,?)", (Username, Password))
+                    VALUES (?,?)", (Username, Password))
 
         conn.commit()
         conn.close()
         return redirect("/login")
 
 
-@app.route("/Search", methods=['GET', 'POST'])
+@app.route("/form", methods=['GET', 'POST'])
 def gravesearch():
     if request.method == 'GET':
         return render_template('Forum_page.html')
@@ -163,14 +166,18 @@ def gravesearch():
             Name = request.form.get('Name', default="Error")
             conn = sqlite3.connect(DATABASE)
             cur = conn.cursor()
-            print(Name)
-            cur.execute(
-                "SELECT * FROM Information WHERE Name = ?;", (Name,))
-            print("it worked")
-            data = cur.fetchall()
-            print(data)
-            if len(data) > 0:
-                return redirect('/login')
+            data = cur.execute(
+                "SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE Public = 1 and Name = ?;", (Name,)).fetchone()
+            if(data is not None):
+                return render_template('information.html', infodata={
+                    "name": data[0],
+                    "dob": data[1],
+                    "dod": data[2],
+                    "info": data[3],
+                    "cs": data[4],
+                    "gn": data[5],
+                    "img": data[6]
+                })
             else:
                 return redirect('/nodata')
         except Exception as e:
@@ -181,10 +188,25 @@ def gravesearch():
             conn.close()
 
 
-@app.route("/form", methods=['GET'])
-def form():
-    if request.method == 'GET':
-        return render_template("Forum_page.html")
+@app.route("/plots/<plot>", methods=['GET'])
+def plots(plot):
+    conn = sqlite3.connect(DATABASE)
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT [Name], [ID], [Grave number] FROM Information WHERE Public = 1 and [Cemetery section] = ?;", (plot,))
+    data = cur.fetchall()
+    infodata = []
+    for info in data:
+        infodata.append({
+            "name": info[0],
+            "id": info[1],
+            "gn": info[2]
+        })
+    conn.close()
+    if len(data) > 0:
+        return render_template("plots.html", data=infodata, plot=plot)
+    else:
+        return render_template('nodata.html')
 
 
 @app.route("/api/map", methods=['GET'])
