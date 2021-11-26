@@ -195,9 +195,16 @@ def plots(plot):
     cur.execute(
         "SELECT [Name], [ID], [Grave number] FROM Information WHERE Public = 1 and [Cemetery section] = ?;", (plot,))
     data = cur.fetchall()
+    infodata = []
+    for info in data:
+        infodata.append({
+            "name": info[0],
+            "id": info[1],
+            "gn": info[2]
+        })
     conn.close()
     if len(data) > 0:
-        return render_template("plots.html", data=data, plot=plot)
+        return render_template("plots.html", data=infodata, plot=plot)
     else:
         return render_template('nodata.html')
 

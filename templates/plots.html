@@ -1,3 +1,12 @@
 {%extends 'wireframe.html'%} {% block mainBlock%}
-<p>{{ data }}</p>
+<div class = "myForm"> 
+{% for info in data %}
+	<div>
+		<a href="/information/{{ info.id }}">
+	        <p>{{ info.name }}</p>
+	        <p>Grave Number: {{ info.gn }}</p>
+	    </a>
+	</div>
+{% endfor %}
 {%endblock%} {%block titleBlock%} Plots in {{ plot }} {% endblock %}
+</div>

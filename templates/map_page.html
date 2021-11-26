@@ -5,7 +5,7 @@
 
 <img src="/static/st_woolos_cemetary.png" usemap="#image-map" class="cemeteryMap" />
 
-<map name="image-map">
+<map name="image-map" method = 'post' onsubmit="return loadName()">
 	<area id="COND01" alt="COND01" title="COND01" href="/nodata" coords="616,474,681,422" shape="rect" />
 	<area id="COND02" alt="COND02" title="COND02" href="/nodata" coords="690,476,748,420" shape="rect" />
 	<area id="COND03" alt="COND03" title="COND03" href="/nodata" coords="757,474,833,420" shape="rect" />
@@ -58,17 +58,32 @@
 	<area id="RCD18" alt="RCD18" title="RCD18" href="/nodata" coords="1147,553,1214,488" shape="rect" />
 	<area id="FCD16" alt="FCD16" title="FCD16" href="/nodata" coords="1145,635,1215,559" shape="rect" />
 	<area id="FCD15" alt="FCD15" title="FCD15" href="/nodata" coords="1147,720,1212,644" shape="rect" />
-	<area id="FCD07" alt="FCD07" title="FCD07" href="/nodata" coords="1147,804,1212,730" shape="rect" />
-	<area id="FCD06" alt="FCD06" title="FCD06" href="/nodata" coords="1147,889,1215,813" shape="rect" />
-	<area id="FCD05" alt="FCD05" title="FCD05" href="/nodata" coords="1145,973,1215,897" shape="rect" />
-	<area id="COND27" alt="COND27" title="COND27" href="/nodata" coords="755,720,830,648" shape="rect" />
-	<area
-		id="CONRCD117"
-		alt="CONRCD117"
-		title="CONRCD117"
-		href="/nodata"
-		coords="243,411,187,494,140,489,97,396,108,436,120,458,111,362,102,378,99,413,120,346,133,326"
-		shape="poly"
-	/>
+	<area id="FCD07" alt="FCD07" title="FCD07" href="/plots/FCD07" coords="1147,804,1212,730" shape="rect" />
+	<area id="FCD06" alt="FCD06" title="FCD06" href="/plots/FCD06" coords="1147,889,1215,813" shape="rect" />
+	<area id="FCD05" alt="FCD05" title="FCD05" href="/plots/FCD05" coords="1145,973,1215,897" shape="rect" />
+	<area id="COND27" alt="COND27" title="COND27" href="/plots/COND27" coords="755,720,830,648" shape="rect" />
+	<area id="CONRCD117" alt="CONRCD117" title="CONRCD117" href="/nodata" coords="243,411,187,494,140,489,97,396,108,436,120,458,111,362,102,378,99,413,120,346,133,326" shape="poly" />
+	<area id="COND40" alt="COND40" title="COND40" href = "/plots/COND40" coords="1856,707,1856,837,1899,839,1972,754,1943,738,1914,716,1897,696" shape="poly">
 </map>
+
+<script>
+	  function loadName() {
+    var firstName = document.forms["image-map"][id].value;
+
+    params = 'image-map='+id;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", '/plots', true); // true is asynchronous
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.onload = function() {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+        console.log(xhttp.responseText);
+        document.getElementById("txt").innerHTML = xhttp.responseText;
+      } else {
+        console.error(xhttp.statusText);
+      }
+    };
+    xhttp.send(params);
+    return false;
+  }
+</script>
 {%endblock%}
