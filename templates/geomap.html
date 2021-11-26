@@ -37,6 +37,10 @@
 							"...",
 					);
 			});
+
+			navigator.geolocation.getCurrentPosition((location) => {
+				L.marker([location.coords.latitude, location.coords.longitude]).addTo (map);
+			});
 		});
 </script>
 {%endblock%} {%block titleBlock%} Geo Map {% endblock %}
