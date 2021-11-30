@@ -116,7 +116,7 @@ def usersearch():
                     else:
                         return redirect('/add')
 
-            return render_template('Signin.html', message="Wrong Username or Password")
+            return render_template('Signin.html', message="Invalid Username or Password")
         except Exception as e:
             print(e)
             print('there was an error')
