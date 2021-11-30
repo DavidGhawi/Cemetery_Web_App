@@ -38,12 +38,13 @@
 					);
 			});
 
-			navigator.geolocation.getCurrentPosition((location) => {
-				L.marker([location.coords.latitude, location.coords.longitude]).addTo(map);
-			},
-			() => {
-				alert ("There was an error determining your location.");
-			},
+			navigator.geolocation.getCurrentPosition(
+				(location) => {
+					L.marker([location.coords.latitude, location.coords.longitude]).addTo(map);
+				},
+				() => {
+					alert("There was an error determining your location.");
+				},
 			);
 		});
 </script>

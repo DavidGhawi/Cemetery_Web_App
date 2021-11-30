@@ -1,15 +1,9 @@
-{%extends 'login_page.html'%}
-
-{% block titleBlock%}
-<h1 id = "headerContent"> Log In </h1>
-{%endblock%}
-
-{% block mainBlock%}
-                <form  method= 'post'>
-                  Username:
-                  <input type = "text" name = "username" placeholder="Username..." ><br>
-                  Password:
-                  <input id = "psswrd" type = "password" name = "password" placeholder="Password..." ><br>
-                  <button type = "submit" id='mySubmit'> Submit </button>
-                </form>
+{%extends 'login_page.html'%} {% block titleBlock%} Log In {%endblock%} {% block mainBlock%}
+<form method="post">
+	Username:
+	<input type="text" name="username" placeholder="Username..." /><br />
+	Password:
+	<input id="psswrd" type="password" name="password" placeholder="Password..." /><br />
+	<button type="submit" id="mySubmit">Submit</button>
+</form>
 {%endblock%}

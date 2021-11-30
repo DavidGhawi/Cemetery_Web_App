@@ -3,7 +3,7 @@
 	<head>
 		<link rel="stylesheet" type="text/css" href="/static/wireframe.css" />
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@2.0.6/build/grids-responsive-min.css" />
-		<title>Title</title>
+		<title>{{ self.titleBlock() }}</title>
 	</head>
 	<body>
 		<nav class="navigation">
@@ -37,19 +37,19 @@
 		</footer>
 	</body>
 	<script type="text/javascript">
-	  var topbutton = document.getElementById("topBtn");
+		var topbutton = document.getElementById("topBtn");
 
-	  window.onscroll = () => {
-	    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-	      topbutton.style.display = "block";
-	    } else {
-	      topbutton.style.display = "none";
-	    }
-	  }
+		window.onscroll = () => {
+			if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+				topbutton.style.display = "block";
+			} else {
+				topbutton.style.display = "none";
+			}
+		};
 
-	  function topFunction() {
-	    document.body.scrollTop = 0;
-	    document.documentElement.scrollTop = 0;
-	  }
+		function topFunction() {
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+		}
 	</script>
 </html>
