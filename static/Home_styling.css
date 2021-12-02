@@ -1,5 +1,4 @@
-.sidebar {
-	float: left;
+aside {
 	width: 20%;
 	padding: 1.5%;
 	border: 2px solid black;
@@ -11,8 +10,16 @@
 	box-shadow: 2px 2px 5px black;
 }
 
-.sidebar h1 {
+aside h1 {
 	text-decoration: underline;
+}
+
+.sidebar1 {
+	float: left;
+}
+
+.sidebar2 {
+	float: right;
 }
 
 .cemetery_img1 {
