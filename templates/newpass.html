@@ -1,0 +1,19 @@
+{%extends 'login_page.html'%}
+
+{% block titleBlock%}
+<h1 id = "headerContent"> Forgot Password </h1>
+{%endblock%}
+
+
+
+{% block mainBlock%}
+				<form  method= 'post'>
+                  Username:
+                  <input type = "text" name = "username" placeholder="Username..." ><br>
+                  New Password:
+                  <input id = "psswrd" type = "password" name = "password" placeholder="New Password..." ><br>
+                  <button type = "submit" id='mySubmit'> Submit </button>
+
+                </form>
+{%endblock%}
+{%endblock%}

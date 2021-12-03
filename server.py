@@ -2,6 +2,8 @@ import os
 import sqlite3
 import json
 import copy
+import smtplib
+import ssl
 from flask import Flask, redirect, request, render_template, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
@@ -336,6 +338,36 @@ def information(id):
         })
     else:
         return render_template('nodata.html')
+
+
+@app.route("/forgot", methods=['POST', 'GET'])
+def email():
+    if request.method == 'GET':
+        return render_template("forgotpass.html")
+    if request.method == 'POST':
+        user = request.form.get('Username')
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        data = c.execute(
+            "SELECT Email FROM Login WHERE Username=?;", [user]).fetchone()
+        conn.close()
+        if data is None:
+            return render_template("forgotpass.html", message="no email was found with this username")
+        smtp_server = "smtp.gmail.com"
+        port = 587
+        context = ssl.create_default_context()
+        try:
+            with smtplib.SMTP(smtp_server, port) as server:
+                server.starttls(context=context)
+                server.login('stwooloscemetary.cardiff@gmail.com')
+                server.sendmail('stwooloscemetary.cardiff@gmail.com',
+                                'hamedsarmi123@gmail.com', 'TEST')
+        except Exception as e:
+            # Print any error messages to stdout
+            print(e)
+        finally:
+            server.quit()
+        return render_template("newpass.html")
 
 
 if __name__ == "__main__":
