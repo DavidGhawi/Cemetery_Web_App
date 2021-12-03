@@ -1,3 +1,4 @@
+from email.message import EmailMessage
 import os
 import sqlite3
 import json
@@ -7,6 +8,9 @@ import ssl
 from flask import Flask, redirect, request, render_template, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import math, random
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 DATABASE = 'cemetery_db.db'
@@ -191,12 +195,13 @@ def createuser():
         Username = request.form.get('Username', default="Error").lower()
         Password = request.form.get('Password', default="Error")
         Password = generate_password_hash(Password)
+        Email = request.form.get('Email', default="Error")
         if len(Username) == 0 or len(Password) == 0 or len(Email) == 0:
             return render_template('signup.html', message = "Must fill out all fields") 
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
-        cur.execute("INSERT INTO Login ('Username', 'Password')\
-                    VALUES (?,?)", (Username, Password))
+        cur.execute("INSERT INTO Login ('Username', 'Password', 'Email')\
+                    VALUES (?,?,?)", (Username, Password, Email))
 
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
@@ -207,8 +212,8 @@ def createuser():
         if count > 0:
             return render_template('signup.html', message="Username already registered.")
 
-        cur.execute("INSERT INTO Login ('Username', 'Password')\
-                    VALUES (?,?)", (Username, Password))
+        cur.execute("INSERT INTO Login ('Username', 'Password', 'Email')\
+                    VALUES (?,?,?)", (Username, Password, Email))
 
         conn.commit()
         conn.close()
@@ -340,35 +345,52 @@ def information(id):
         return render_template('nodata.html')
 
 
+
+
 @app.route("/forgot", methods=['POST', 'GET'])
 def email():
-    if request.method == 'GET':
-        return render_template("forgotpass.html")
-    if request.method == 'POST':
-        user = request.form.get('Username')
-        conn = sqlite3.connect(DATABASE)
-        c = conn.cursor()
-        data = c.execute(
+        if request.method == 'GET':
+            return render_template("forgotpass.html")
+        if request.method == 'POST':
+            user = request.form.get('Username')
+            conn = sqlite3.connect(DATABASE)
+            print ("hi")
+            c = conn.cursor()
+            data = c.execute(
             "SELECT Email FROM Login WHERE Username=?;", [user]).fetchone()
         conn.close()
         if data is None:
             return render_template("forgotpass.html", message="no email was found with this username")
-        smtp_server = "smtp.gmail.com"
-        port = 587
-        context = ssl.create_default_context()
-        try:
+        else:
+            smtp_server = "mail.kavin.rocks"
+            port = 587
+            digits = "0123456789"
+            OTP = ""
+            for i in range(4) :
+                OTP += digits[math.floor(random.random() * 10)]
             with smtplib.SMTP(smtp_server, port) as server:
-                server.starttls(context=context)
-                server.login('stwooloscemetary.cardiff@gmail.com')
-                server.sendmail('stwooloscemetary.cardiff@gmail.com',
-                                'hamedsarmi123@gmail.com', 'TEST')
-        except Exception as e:
-            # Print any error messages to stdout
-            print(e)
-        finally:
-            server.quit()
-        return render_template("newpass.html")
+                server.starttls()
+                server.login('cemetery-mailer', 'vKyfkrNo83KR5zaJ')
+                sender_email = 'cemetery-mailer@kavin.rocks'
+                receiver_email = data[0]
+                message = MIMEMultipart("alternative")
+                message["Subject"] = "multipart test"
+                message["From"] = sender_email
+                message["To"] = receiver_email
 
+
+
+                # Create the plain-text and HTML version of your message
+                text = """\
+                Here is your one time code: """ + OTP
+                
+
+                part1 = MIMEText(text, "plain")
+                message.attach(part1)
+                server.sendmail(sender_email,
+                receiver_email, message.as_string())
+                server.quit()
+            return render_template("newpass.html")
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
