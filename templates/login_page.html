@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
       <link rel="stylesheet" type = "text/css" href = "/static/wireframe.css">
-      <title> {{ self.titleBlock() }}} </title>
+      <title> {{ self.titleBlock() }} </title>
 </head>
 <body>
-      
+
       <nav class="navigation">
                   <ul>
                         <li>
@@ -29,8 +29,8 @@
       <header class = "header">
       <h1 id = "headerContent">{% block titleBlock%} Login / Sign UP {%endblock%}</h1>
       </header>
-      
-      <div class = "content"> 
+
+      <div class = "content">
             <form class='myForm'  method="POST" action="">
                   <a href="/login" id="login"> Log In<a>
                   <a href="/signup" id="signup"> Sign Up</a>
