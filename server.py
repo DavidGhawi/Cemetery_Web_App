@@ -4,6 +4,7 @@ import json
 import copy
 from flask import Flask, redirect, request, render_template, jsonify
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, login_user, login_required, logout_user, current_user
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 DATABASE = 'cemetery_db.db'
@@ -16,9 +17,57 @@ if not os.path.exists(DATABASE):
     conn.commit()
     conn.close()
 
+login_manager = LoginManager()
+login_manager.login_view = '/login'
+
+
+class User ():
+    def __init__(self, id, username, admin=False):
+        self.id = id
+        self.username = username
+        self.admin = admin
+
+    @property
+    def is_authenticated(self):
+        return True
+
+    @property
+    def is_active(self):
+        return True
+
+    @property
+    def is_anonymous(self):
+        return False
+
+    def get_id(self):
+        return self.id
+
+    @property
+    def is_admin(self):
+        return self.admin
+
+    def __repr__(self):
+        return '<User %r>' % self.username
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    conn = sqlite3.connect(DATABASE)
+    cur = conn.cursor()
+    cur.execute(
+        "SELECT Username FROM Login WHERE ID=?;", [user_id])
+    data = cur.fetchone()
+    if data is None:
+        return None
+    return User(user_id, data[0], data[0] == 'admin')
+
+
 mapconfig = json.load(open("mapconfig.json"))
 
 app = Flask(__name__)
+app.secret_key = "super secret key"
+
+login_manager.init_app(app)
 
 
 @app.route("/signup", methods=['GET'])
@@ -46,7 +95,10 @@ def nodata():
 
 
 @app.route("/moderator", methods=['GET'])
+@login_required
 def moderator():
+    if(not current_user.is_admin):
+        return render_template('notadmin.html')
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
     c.execute("SELECT * FROM Information WHERE Public = 0;")
@@ -76,6 +128,7 @@ def approve(id):
 
 
 @app.route("/add", methods=['GET', 'POST'])
+@login_required
 def add_render():
     if request.method == 'GET':
         return render_template('user_upload.html')
@@ -97,33 +150,34 @@ def add_render():
 
 
 @app.route("/login", methods=['GET', 'POST'])
-def usersearch():
+def login():
     if request.method == 'GET':
         return render_template('Signin.html')
     if request.method == 'POST':
-        try:
-            Username = request.form.get('username', default="Error").lower()
-            Password = request.form.get('password', default="Error")
-            conn = sqlite3.connect(DATABASE)
-            cur = conn.cursor()
-            cur.execute(
-                "SELECT Password FROM Login WHERE Username=?;", [Username])
-            data = cur.fetchone()
-            if data is not None:
-                if check_password_hash(data[0], Password):
-                    if Username == "admin":
-                        return redirect("/moderator")
-                    else:
-                        return redirect('/add')
+        Username = request.form.get('username', default="Error").lower()
+        Password = request.form.get('password', default="Error")
+        conn = sqlite3.connect(DATABASE)
+        cur = conn.cursor()
+        cur.execute(
+            "SELECT Password, ID FROM Login WHERE Username=?;", [Username])
+        data = cur.fetchone()
+        conn.close()
+        if data is not None:
+            if check_password_hash(data[0], Password):
+                user = User(id=data[1], username=Username,
+                            admin=Username == "admin")
+                login_user(user)
 
-            return render_template('Signin.html', message="Invalid Username or Password")
-        except Exception as e:
-            print(e)
-            print('there was an error')
-            conn.close()
-        finally:
-            conn.close()
-            # return render_template('ListStudents.html', data = data)
+                next = request.args.get('next')
+                if (next):
+                    return redirect(next)
+
+                if Username == "admin":
+                    return redirect("/moderator")
+                else:
+                    return redirect('/add')
+
+        return render_template('Signin.html', message="Invalid Username or Password")
 
 
 @app.route("/signup", methods=['POST', 'GET'])
@@ -255,6 +309,12 @@ def livemap():
     return render_template('geomap.html')
 
 
+@app.route("/logout", methods=['GET'])
+def logout():
+    logout_user()
+    return redirect('/login')
+
+
 @app.route("/information/<id>", methods=['GET'])
 def information(id):
     conn = sqlite3.connect(DATABASE)
@@ -277,4 +337,4 @@ def information(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
