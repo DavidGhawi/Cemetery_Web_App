@@ -1,6 +1,6 @@
 {%extends 'wireframe.html'%} {% block titleBlock%} Information {%endblock%} {%block mainBlock%}
 <div class="myForm">
-	<h1>{{ name }}</h1>
+	<h1>{{ infodata.name }}</h1>
 	<img
 		src="{{ infodata.img or '/static/unknown-avatar.svg' }}"
 		alt="Picture of {{ infodata.name }}"

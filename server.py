@@ -160,32 +160,26 @@ def createuser():
 @app.route("/form", methods=['GET', 'POST'])
 def gravesearch():
     if request.method == 'GET':
-        return render_template('Forum_page.html')
+        return render_template('search_form.html')
     if request.method == 'POST':
-        try:
-            Name = request.form.get('Name', default="Error")
-            conn = sqlite3.connect(DATABASE)
-            cur = conn.cursor()
-            data = cur.execute(
-                "SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE Public = 1 and Name = ?;", (Name,)).fetchone()
-            if(data is not None):
-                return render_template('information.html', infodata={
-                    "name": data[0],
-                    "dob": data[1],
-                    "dod": data[2],
-                    "info": data[3],
-                    "cs": data[4],
-                    "gn": data[5],
-                    "img": data[6]
-                })
-            else:
-                return redirect('/nodata')
-        except Exception as e:
-            print(e)
-            print('there was an error')
-            conn.close()
-        finally:
-            conn.close()
+        Name = request.form.get('Name', default="Error")
+        conn = sqlite3.connect(DATABASE)
+        cur = conn.cursor()
+        data = cur.execute(
+            "SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE Public = 1 and LOWER(Name) LIKE ?;", ("%" + Name.lower() + "%",)).fetchone()
+        conn.close()
+        if(data is not None):
+            return render_template('information.html', infodata={
+                "name": data[0],
+                "dob": data[1],
+                "dod": data[2],
+                "info": data[3],
+                "cs": data[4],
+                "gn": data[5],
+                "img": data[6]
+            })
+        else:
+            return redirect('/nodata')
 
 
 @app.route("/plots/<plot>", methods=['GET'])
