@@ -1,17 +1,16 @@
 {%extends 'login_page.html'%}
 
 {% block titleBlock%}
-Enter One 
+Enter One Time Code 
 {%endblock%}
 
 
 
 {% block mainBlock%}
-				<form  method= 'post'>
-                  Username:
-                  <input type = "text" name = "username" placeholder="Username..." ><br>
-                  New Password:
-                  <input id = "psswrd" type = "password" name = "password" placeholder="New Password..." ><br>
+				<form class = "myForm" action="/OTPcode" method = 'POST'>
+                  Enter One Time Code:
+                  <input type = "text" name = "code" placeholder="code..." ><br>
+
                   <button type = "submit" id='mySubmit'> Submit </button>
 
                 </form>
