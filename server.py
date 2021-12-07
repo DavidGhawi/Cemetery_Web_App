@@ -189,6 +189,8 @@ def createuser():
         Username = request.form.get('Username', default="Error").lower()
         Password = request.form.get('Password', default="Error")
         Password = generate_password_hash(Password)
+        if len(Username) == 0 or len(Password) == 0 or len(Email) == 0:
+            return render_template('signup.html', message = "Must fill out all fields") 
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
         cur.execute("INSERT INTO Login ('Username', 'Password')\
