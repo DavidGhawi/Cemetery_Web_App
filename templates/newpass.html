@@ -1,4 +1,4 @@
-{%extends 'login_page.html'%}
+{%extends 'wireframe.html'%}
 
 {% block titleBlock%}
 Enter One Time Code 
@@ -7,7 +7,7 @@ Enter One Time Code
 
 
 {% block mainBlock%}
-				<form class = "myForm" action="/OTPcode" method = 'POST'>
+				<form class = "myForm"  action="/OTPcode" method="POST" >
                   Enter One Time Code:
                   <input type = "text" name = "code" placeholder="code..." ><br>
 
@@ -15,5 +15,26 @@ Enter One Time Code
 
                 </form>
                 {{ error }}
+<!-- <script>
+ function loadName1() {
+    var code = document.forms["myForm"]["code"].value;
+
+    params = 'code='+code;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST",'/OTPcode' , true); // true is asynchronous
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.onload = function() {
+      if (xhttp.readyState === 4 && xhttp.status === 200) {
+        console.log(xhttp.responseText);
+        document.getElementById("txt").innerHTML = xhttp.responseText;
+      } else {
+        console.error(xhttp.statusText);
+      }
+    };
+    xhttp.send(params);
+    return false;
+  }
+
+</script>  -->
 {%endblock%}
 
