@@ -6,11 +6,11 @@ CREATE TABLE IF NOT EXISTS `Login` (
   `Username`	TEXT NOT NULL,
   `Password`	TEXT NOT NULL,
   `Email`     TEXT NOT NULL,
-  'OTP'       TEXT NOT NULL
+  'OTP'       TEXT DEFAULT NULL
 );
 
-INSERT INTO 'Login'('Username','Password', 'email', 'OTP') VALUES 
-('admin','pbkdf2:sha256:260000$QVmjB5L1yPtuO6w8$79557af45499cb64aa6c329956ff522109098aee71aa8c2685620d9e1ca943ff', 'stwooloscemetary.cardiff@gmail.com', '');
+INSERT INTO 'Login'('Username','Password', 'Email') VALUES 
+('admin','pbkdf2:sha256:260000$QVmjB5L1yPtuO6w8$79557af45499cb64aa6c329956ff522109098aee71aa8c2685620d9e1ca943ff', 'stwooloscemetary.cardiff@gmail.com');
 
 CREATE TABLE IF NOT EXISTS `Information` (
   `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,

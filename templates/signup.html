@@ -1,11 +1,11 @@
 {%extends 'login_page.html'%} {% block titleBlock%} Sign Up {%endblock%} {% block mainBlock%}
-<form id="myForm">
+<form id="myForm" action="/signup" method="POST">
 	Create Username:
 	<input type="text" name="Username" placeholder="Username..." /><br />
 	Create Password:
 	<input id="psswrd" type="text" name="Password" placeholder="Password..." /><br />
 	Email:
-	<input type="Email" name="Email" placeholder="Email"> <br>
+	<input type="Email" name="Email" placeholder="Email" /> <br />
 	<button type="submit" id="mySubmit">Submit</button>
 </form>
 
