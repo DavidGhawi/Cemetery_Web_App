@@ -17,4 +17,27 @@
 		<input type="submit" value="Submit" />
 	</form>
 </div>
+
+<script type = "text/javascript">
+function validate(){
+      if( !document.querySelector("#name").value ) {
+         alert( "Please enter your name" );
+         document.querySelector("#name").focus() ;
+         return false;
+      }
+
+}
+document.querySelector("form").onsubmit = validate;
+
+function numbers(){
+    let x = document.getElementById("Dbirth").value;
+    let text;
+  if (isNaN(x) || x < 0 || x > 2000) 
+alert("Please enter a valid date of birth")
+  }
+
+document.isNaN("form").onsubmit = numbers
+
+
+</script>
 {%endblock%} {%block titleBlock%} Add User Page {% endblock %}

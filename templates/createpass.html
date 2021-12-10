@@ -1,0 +1,15 @@
+{%extends 'login_page'%}
+Forgot Password
+{% block titleBlock%}
+{%endblock%}
+
+{% block mainBlock %}
+
+<form id="myForm" action="/createpass">
+Username:
+<input type="text" name="username" placeholder="Username..." /><br />
+New Password:
+<input id="psswrd" type="password" name="password" placeholder="Password..." /><br />
+<button type="submit" id="mySubmit">Submit</button>
+</form>
+{%endblock%}
