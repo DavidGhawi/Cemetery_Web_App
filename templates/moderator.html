@@ -3,15 +3,22 @@
 	{% for data in information %}
 	<div info-id="{{ data[0] }}" class="pure-u-xl-1-5">
 		<p>Id: {{ data[0] }}</p>
-		<p>Name: {{ data[1] }}</p>
-		<p>Date of Birth: {{ data[2] }}</p>
+		<p>Name:</p>
+		<input data="name" value="{{ data[1] }}" />
+		<p>Date of Birth:</p>
+		<input data="dob" value="{{ data[2] }}" />
 		<p>Date of Death: {{ data[3] }}</p>
-		<p>Information: {{ data[4] }}</p>
-		<p>Cemetery Section: {{ data[5] }}</p>
-		<p>Grave Number: {{ data[6] }}</p>
+		<input data="dod" value="{{ data[3] }}" />
+		<p>Information:</p>
+		<textarea data="information">{{ data[4] }}</textarea>
+		<p>Cemetery Section:</p>
+		<input data="cs" value="{{ data[5] }}" />
+		<p>Grave Number:</p>
+		<input data="gn" value="{{ data[6] }}" />
 		<img src="{{ data[7] }}" alt="Picture of {{ data[1] }}" />
 		<button>Remove Submission</button>
 		<button>Approve Submission</button>
+		<button>Edit Information Submission</button>
 	</div>
 	{% endfor %}
 </div>
@@ -20,6 +27,7 @@
 		const buttons = elem.querySelectorAll("button");
 		const removeButton = buttons[0];
 		const approveButton = buttons[1];
+		const editButton = buttons[2];
 		removeButton.addEventListener("click", () => {
 			const id = elem.getAttribute("info-id");
 			fetch("/remove/" + id, {
@@ -34,6 +42,33 @@
 				method: "POST",
 			}).then(() => {
 				elem.remove();
+			});
+		});
+
+		editButton.addEventListener("click", () => {
+			const id = elem.getAttribute("info-id");
+			const name = document.querySelector("input[data=name]").value;
+			const dob = document.querySelector("input[data=dob]").value;
+			const dod = document.querySelector("input[data=dod]").value;
+			const information = document.querySelector("textarea[data=information]").value;
+			const cs = document.querySelector("input[data=cs]").value;
+			const gn = document.querySelector("input[data=gn]").value;
+			console.log(name);
+			fetch("/edit/" + id, {
+				method: "POST",
+				body: JSON.stringify({
+					name: name,
+					dob: dob,
+					dod: dod,
+					info: information,
+					cs: cs,
+					gn: gn,
+				}),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			}).then(() => {
+				alert("Information Edited");
 			});
 		});
 	});
