@@ -10,7 +10,7 @@
 		<input type="text" id="Ddeath" name="Ddeath" value="" /><br />
 		<label for="Information">Information:</label><br />
 		<textarea id="Information" name="Information"></textarea><br />
-		<label for="Cemetery_section">Cemetery section:</label><br />
+		<label id = "Csect" for="Cemetery_section">Cemetery section:</label><br />
 		<input type="text" id="Cemetery_section" name="Cemetery_section" value="" /><br />
 		<label for="Grave_number">Grave number:</label><br />
 		<input type="text" id="Grave_number" name="Grave_number" value="" /><br />
@@ -20,20 +20,20 @@
 </div>
 
 <script type="text/javascript">
-function email_verification() {
-    if (/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/.test(theForm.email-id.value)){
-        return(true);
-    }
-alert("Invalid Email adress, please eneter a valid email");
-}
+// function email_verification() {
+//     if (/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/.test(theForm.email-id.value)){
+//         return(true);
+//     }
+// alert("Invalid Email adress, please eneter a valid email");
+// }
 
 </script>
 
-<form onsubmit="return email_verification(this);" action="">
+<!-- <form onsubmit="return email_verification(this);" action="">
     Email:
     <input type="text" name="email">
     <input type="submit" name="Submit">
     <input type="reset" name="Reset">
 
-</form>
+</form> -->
 {%endblock%} {%block titleBlock%} Add User Page {% endblock %}

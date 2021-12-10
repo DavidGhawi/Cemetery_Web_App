@@ -191,3 +191,51 @@ footer:hover .form {
 #topBtn :hover {
 	background-color: #555;
 }
+
+
+/* for the loading circle */
+.loading {
+  max-width: 100px;
+  height: 40px;
+  border: 5px solid #2FCE9E;
+  border-radius: 50px;
+  position: absolute;
+  top: 73%;
+  right: 53%;
+  transform: translate(-50%, -50%), rotate(0deg); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  color: #2FCE9E;
+  transition: all .5s;
+  margin: -20px -75px;
+}
+
+.loading:hover {
+  cursor: pointer;
+}
+
+.loading.is-loading {
+  transition: all .17s ease-out;
+  color: transparent;
+  width: 40px;
+  height: 40px;
+  border: 5px solid #B9B9B9;
+  border-top: 5px solid #2FCE9E;
+  border-radius: 50%; 
+  animation: rotate 1s infinite linear;
+  transform-origin:center center;
+  margin-top: 60px;
+  right: 500px;
+}
+
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

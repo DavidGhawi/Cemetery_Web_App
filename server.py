@@ -397,7 +397,7 @@ def sendNewCode():
         "SELECT Email FROM Login WHERE Username=?;", [fuser]).fetchone()
     conn.close()
     if data is None:
-        return render_template("forgotpass.html", message="no email was found with this username")
+        return render_template("forgotpass.html", message="No EMAIL WAS FOUND WITH THIS USERNAME")
     smtp_server = "mail.kavin.rocks"
     port = 587
 
