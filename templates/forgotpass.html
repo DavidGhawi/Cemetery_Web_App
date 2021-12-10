@@ -9,29 +9,28 @@ Forgot Password
 <form id="myForm" action="/sendNewCode" method="POST">
   Enter Username and a reset link will be sent to the related email:
   <input id = "Username" type="text" name="Username" placeholder="Username..."><br>
-  <button  type="submit" id='mySubmit'> Submit </button>
+  <button class = "loading" type="submit" > Submit </button>
 </form>
 
 
 <script>
- function loadName() {
-    var Username = document.forms["myForm"]["Username"].value;
+var loading = document.getElementsByClassName('loading')[0];
 
-    params = 'Username='+Username;
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("POST", '/sendNewCode', true); // true is asynchronous
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.onload = function() {
-      if (xhttp.readyState === 4 && xhttp.status === 200) {
-        console.log(xhttp.responseText);
-        document.innerHTML = xhttp.responseText;
-      } else {
-        console.error(xhttp.statusText);
-      }
-    };
-    xhttp.send(params);
-    return false;
-  }
-
+loading.addEventListener('click', function(event) {
+    loading.className += ' is-loading';
+  
+    setTimeout(function() {
+      loading.className = 'loading finish';
+      loading.innerHTML = 'Timed Out';
+    }, 4000);
+  
+  setTimeout(function() {
+    loading.className = 'loading';
+  }, 4000);
+  
+  setTimeout(function() {
+    loading.innerHTML = 'Submit';
+  }, 4100);
+});
 </script> 
 {%endblock%}
