@@ -220,7 +220,7 @@ def gravesearch():
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
         data = cur.execute(
-            "SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE Public = 1 and LOWER(Name) LIKE ?;", ("%" + Name.lower() + "%",)).fetchone()
+            "SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image],[ID] FROM Information WHERE Public = 1 and LOWER(Name) LIKE ?;", ("%" + Name.lower() + "%",)).fetchone()
         conn.close()
         if(data is not None):
             return render_template('information.html', infodata={
@@ -231,7 +231,7 @@ def gravesearch():
                 "cs": data[4],
                 "gn": data[5],
                 "img": data[6]
-            })
+            }, id=data[7])
         else:
             return redirect('/nodata')
 
@@ -331,9 +331,46 @@ def information(id):
             "cs": data[4],
             "gn": data[5],
             "img": data[6]
-        })
+        }, id=id)
     else:
         return render_template('nodata.html')
+
+@app.route("/flowers/<id>", methods=['GET','POST'])
+def flowers(id):
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    data = c.execute(
+        "SELECT [Name],[Date of birth],[Date of death],[Information],[Cemetery section],[Grave number],[Image] FROM Information WHERE ID = ?;", (id,)).fetchone()
+    flowersdata = c.execute(
+        "SELECT Name, message FROM Flower WHERE target = ?;", (id,)).fetchall()
+    infodata = {
+        "name": data[0],
+        "dob": data[1],
+        "dod": data[2],
+        "info": data[3],
+        "cs": data[4],
+        "gn": data[5],
+        "img": data[6]
+    }
+
+    if request.method == 'GET':
+        conn.close()
+        return render_template('view_flowers.html', flowers=flowersdata, infodata=infodata)
+    elif current_user.is_authenticated:
+        name = request.form.get('name')
+        flowermessage = request.form.get('flowermessage')
+        target = id
+        c.execute("INSERT INTO Flower('Name', 'message', 'target') VALUES (?, ?, ?);",
+                  (name, flowermessage, target))
+        conn.commit()
+        conn.close()
+        flowersdata.append([
+            name,
+            flowermessage
+        ])
+        return render_template('view_flowers.html', flowers=flowersdata, infodata=infodata, message="Flower has been submitted")
+    else:
+        redirect('/login')
 
 
 if __name__ == "__main__":
