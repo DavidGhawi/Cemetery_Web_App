@@ -1,0 +1,35 @@
+table{
+
+    border:none;
+
+    border-collapse:collapse;
+
+}
+
+
+form{
+
+    margin-top:5x;
+
+    border:3px dotted white;
+
+    padding:10px;
+
+
+
+}
+
+
+.send-button {
+  margin-top: 50px;
+  height: 54px;
+  width: 100px;
+  overflow: hidden;
+
+}
+
+
+
+.gmail {
+  margin-left: 53px;
+}

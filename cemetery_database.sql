@@ -1,6 +1,8 @@
 DROP TABLE IF EXISTS Login;
 DROP TABLE IF EXISTS Information;
 DROP TABLE IF EXISTS Flower;
+DROP TABLE IF EXISTS Contact;
+
 
 CREATE TABLE IF NOT EXISTS `Login` (
   `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -27,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `Information` (
   'Longitude' REAL DEFAULT NULL
 );
 
-INSERT INTO 'Information' ('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image') VALUES 
+INSERT INTO 'Information' ('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image') VALUES
 ('Albert Watkins', 'N/A', '21 December 1916', 'Chief engineer on board the ship "Rheims", died of consumption at Spezia, Italy.', 'COND40', '191', ''),
 ('Edward SCAPLEHORN', 'N/A', '7 August 1918', 'Royal Field Artillery, 740902, 463rd Batt., Mon. Regt. CROUY British Cemetery, Crouy-Sur-Somme, France. Son of Charles & Clara Ann Scaplehorn, of 94 Commercial Street, Newport.', 'FCD08', '15', ''),
 ('Arthur John DORAN', 'N/A', '4 November 1918', 'Memorial on Family Headstone, killed in France ', 'FCD08', '318', ''),
@@ -48,3 +50,13 @@ CREATE TABLE IF NOT EXISTS `Flower` (
   `message`	TEXT NOT NULL,
   `target`	INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS `Contact` (
+  `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  `name`	TEXT NOT NULL,
+  `email`	TEXT NOT NULL,
+  `message`	TEXT NOT NULL
+  );
+
+  INSERT INTO 'Contact'('name','email','message') VALUES
+  ('David','hammondd3@cardiff.ac.uk', 'testing');

@@ -89,6 +89,22 @@ def home():
         return render_template('Home_page.html')
 
 
+@app.route("/contactus", methods=['GET','POST'])
+def contactus():
+    if request.method == 'GET':
+        return render_template('contact.html')
+    else:
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        c.execute("INSERT INTO Contact('Name', 'email', 'message') VALUES (?, ?, ?);",
+                  (name, email, message))
+        conn.commit()
+        conn.close()
+        return render_template('contact.html', message="Submitted contact form!")
+
 @app.route("/map", methods=['GET'])
 def map():
     if request.method == 'GET':

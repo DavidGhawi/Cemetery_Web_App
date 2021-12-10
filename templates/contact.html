@@ -1,0 +1,40 @@
+{% extends 'wireframe.html' %}
+
+{% block titleBlock %} Contact Us {%endblock%} {% block mainBlock %}
+
+	<link rel="stylesheet" type = "text/css" href = "/static/contact.css">
+
+           <head>
+             <title>Contactus</title>
+
+                </head>
+                <body>
+                <section class = "section1">
+	                  <p id="search">Please give us some feedback</p>
+
+                    <form method="post" class="myForm">
+
+
+
+        <input type="text" class="form-control" placeholder="NAME" name="name" value="" required><br />
+
+          <input type="email" class="form-control" id="email" placeholder="EMAIL" name="email" value="" required><br />
+
+      <textarea class="form-control" rows="10" placeholder="MESSAGE" name="message" required></textarea><br />
+
+      <button class="btn btn-primary send-button" id="submit" type="submit" value="SEND">
+        <div class="alt-send-button">
+          <i class="fa fa-paper-plane"></i><span class="send-text">SEND</span><br />
+        </div>
+
+      </button>
+
+    </form>
+          <li class="list-item"><i class="fa fa-envelope fa-2x"><span class="contact-text gmail"><a href="mailto:#" title="Send me an email">Findthestone@gmail.com</a></span></i></li>
+
+       </body>
+        <hr>
+
+
+
+{%endblock%}
