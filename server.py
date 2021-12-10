@@ -135,6 +135,24 @@ def approve(id):
     return "ok"
 
 
+@app.route("/edit/<id>", methods=['POST'])
+def edit(id):
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    request_data = request.get_json()
+    name = request_data['name']
+    dob = request_data['dob']
+    dod = request_data['dod']
+    info = request_data['info']
+    cs = request_data['cs']
+    gn = request_data['gn']
+    c.execute(
+        "UPDATE Information SET [Name] = ?,[Date of birth] = ?,[Date of death] = ?,[Information] = ?,[Cemetery section] = ?,[Grave number] = ? WHERE ID = ?", (name, dob, dod, info, cs, gn, id))
+    conn.commit()
+    conn.close()
+    return jsonify({"status": "ok"})
+
+
 @app.route("/add", methods=['GET', 'POST'])
 @login_required
 def add_render():
@@ -344,7 +362,8 @@ def information(id):
     else:
         return render_template('nodata.html')
 
-@app.route("/flowers/<id>", methods=['GET','POST'])
+
+@app.route("/flowers/<id>", methods=['GET', 'POST'])
 def flowers(id):
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
