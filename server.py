@@ -72,8 +72,7 @@ def load_user(user_id):
 mapconfig = json.load(open("mapconfig.json"))
 
 app = Flask(__name__)
-# app.secret_key = os.urandom(24)
-app.secret_key = 'fuck you'
+app.secret_key = os.urandom(24)
 
 login_manager.init_app(app)
 
@@ -492,31 +491,6 @@ def createNewPass():
     else:
         return render_template("createpass.html", message="Passwords Don't Match", Username=Username)
 
-@app.route("/addfavourite", methods=['POST'])
-def addfavourite():
-    if current_user.is_authenticated:
-        data = request.get_json()
-        conn = sqlite3.connect(DATABASE)
-        c = conn.cursor()
-        if c.execute("SELECT COUNT (*) FROM Favorite WHERE User = ? AND Grave = ?;", (current_user.get_id(), data['id'])).fetchone()[0] == 0:
-            c.execute("INSERT INTO Favorite(User, Grave) VALUES (?, ?);", (current_user.get_id(), data['id']))
-            conn.commit() 
-        conn.close()
-        return jsonify({"success": True})
-    else:
-        return jsonify({"success": False})
-
-@app.route("/favorites", methods=['GET'])
-def favorites():
-    if current_user.is_authenticated:
-        conn = sqlite3.connect(DATABASE)
-        c = conn.cursor()
-        data = c.execute("SELECT Grave FROM Favorite WHERE User = ?;", (current_user.get_id(),)).fetchall()
-        print(data)
-        conn.close()
-        return render_template("favorites.html", favorites=data)
-    else:
-        return redirect('/login')
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')

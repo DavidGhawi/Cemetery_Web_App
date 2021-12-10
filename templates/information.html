@@ -12,22 +12,6 @@
 	<p>Grave Number: {{ infodata.gn }}</p>
 	<p style="white-space: pre-wrap">{{ infodata.info }}</p>
 	<a style="font-size: 25px" href="/flowers/{{ id }}">View all flowers</a>
-	{% if current_user.is_authenticated %}
-	<button onclick="favourite()">Favourite</button>
-	{% endif %}
 	<button onclick="window.history.back()">Back</button>
 </div>
-<script>
-	function favourite(id) {
-		fetch("/addfavourite", {
-			method: "POST",
-			body: JSON.stringify({
-				id: {{ id }}
-			}),
-			headers: {
-				"Content-Type": "application/json"
-			}
-		})
-	}
-</script>
 {%endblock%}
