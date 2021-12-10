@@ -1,0 +1,16 @@
+{%extends 'login_page.html'%}
+
+{% block titleBlock%}
+Forgot Password
+{%endblock%}
+
+{% block mainBlock%}
+<form id="myForm" method = 'POST' action = "/createNewPass">
+  Enter New Password:
+  <input type="text" name="Username" value="{{ Username }}" hidden />
+  <input id = "psswrd" type="text" name="Password" placeholder="New Password..."><br>
+  Confirm New Password: 
+  <input id = "psswrd2" type="text" name="Password2" placeholder="Confirm Password..."><br>
+  <button type="submit" id='mySubmit'> Submit </button>
+</form>
+{%endblock%}

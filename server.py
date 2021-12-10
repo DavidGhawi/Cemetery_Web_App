@@ -1,10 +1,17 @@
+from email.message import EmailMessage
 import os
 import sqlite3
 import json
 import copy
-from flask import Flask, redirect, request, render_template, jsonify
+import smtplib
+import ssl
+from flask import Flask, redirect, request, render_template, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+import math
+import random
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 
 DATABASE = 'cemetery_db.db'
@@ -65,7 +72,7 @@ def load_user(user_id):
 mapconfig = json.load(open("mapconfig.json"))
 
 app = Flask(__name__)
-app.secret_key = "super secret key"
+app.secret_key = os.urandom(24)
 
 login_manager.init_app(app)
 
@@ -189,12 +196,11 @@ def createuser():
         Username = request.form.get('Username', default="Error").lower()
         Password = request.form.get('Password', default="Error")
         Password = generate_password_hash(Password)
+        Email = request.form.get('Email', default="Error")
         if len(Username) == 0 or len(Password) == 0 or len(Email) == 0:
-            return render_template('signup.html', message = "Must fill out all fields") 
+            return render_template('signup.html', message="Must fill out all fields")
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
-        cur.execute("INSERT INTO Login ('Username', 'Password')\
-                    VALUES (?,?)", (Username, Password))
 
         conn = sqlite3.connect(DATABASE)
         cur = conn.cursor()
@@ -205,8 +211,8 @@ def createuser():
         if count > 0:
             return render_template('signup.html', message="Username already registered.")
 
-        cur.execute("INSERT INTO Login ('Username', 'Password')\
-                    VALUES (?,?)", (Username, Password))
+        cur.execute("INSERT INTO Login ('Username', 'Password', 'Email')\
+                    VALUES (?,?,?)", (Username, Password, Email))
 
         conn.commit()
         conn.close()
@@ -336,6 +342,98 @@ def information(id):
         })
     else:
         return render_template('nodata.html')
+
+
+@app.route("/forgot", methods=['GET'])
+def forgot():
+    if request.method == 'GET':
+        return render_template("forgotpass.html")
+
+
+@app.route("/sendNewCode", methods=['GET', 'POST'])
+def sendNewCode():
+    global fuser
+    fuser = request.form.get('Username')
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    data = c.execute(
+        "SELECT Email FROM Login WHERE Username=?;", [fuser]).fetchone()
+    conn.close()
+    if data is None:
+        return render_template("forgotpass.html", message="no email was found with this username")
+    smtp_server = "mail.kavin.rocks"
+    port = 587
+
+    digits = "0123456789"
+    OTP = ""
+    for i in range(4):
+        OTP += digits[math.floor(random.random() * 10)]
+
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.starttls()
+        server.login('cemetery-mailer', 'vKyfkrNo83KR5zaJ')
+        sender_email = 'cemetery-mailer@kavin.rocks'
+        receiver_email = data[0]
+        message = MIMEMultipart("alternative")
+        message["Subject"] = "Your OTP Code"
+        message["From"] = sender_email
+        message["To"] = receiver_email
+
+        # Create the plain-text and HTML version of your message
+        text = """
+        Here is your one time code: """ + OTP
+
+        text = text.rstrip()
+
+        # Turn these into plain/html MIMEText objects
+        part1 = MIMEText(text, "plain")
+
+        message.attach(part1)
+        server.sendmail(sender_email,
+                        receiver_email, message.as_string())
+        server.quit()
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        c.execute("UPDATE Login SET OTP = ? WHERE Username = ?", (OTP, fuser,))
+        conn.commit()
+        conn.close()
+        session['fuser'] = fuser
+    return render_template("newpass.html")
+
+
+@app.route("/OTPcode", methods=['POST'])
+def OTPcode():
+    code = request.form.get('code')
+    username = session.get('fuser', None)
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+    data = c.execute(
+        "SELECT OTP FROM Login WHERE Username=?;", [username]).fetchone()
+    OTP = data[0]
+    conn.close()
+    if code == OTP:
+
+        return render_template("createpass.html", Username=username)
+    else:
+        return render_template("forgotpass.html", error="OTP is incorrect, please re-enter username")
+
+
+@app.route("/createNewPass", methods=['POST'])
+def createNewPass():
+    Username = request.form.get('Username')
+    NewPass = request.form.get('Password')
+    ConfirmPass = request.form.get('Password2')
+    if ConfirmPass == NewPass:
+        NewPass = generate_password_hash(NewPass)
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        c.execute(
+            "UPDATE Login SET Password = ? WHERE Username = ?", (NewPass, Username,))
+        conn.commit()
+        conn.close()
+        return render_template("Signin.html", message="Password Updated")
+    else:
+        return render_template("createpass.html", message="Passwords Don't Match", Username=Username)
 
 
 if __name__ == "__main__":
