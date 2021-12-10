@@ -1,0 +1,30 @@
+{%extends 'wireframe.html'%} {% block titleBlock%} Flowers {%endblock%} {%block mainBlock%}
+<link rel="stylesheet" type="text/css" href="/static/flower_styling.css" />
+{% if infodata %}
+<h1>{{ infodata.name }}</h1>
+<a id= "FlowerLink" href="#flowername">Submit a flower</a><br>
+<br><img
+	src="{{ infodata.img or '/static/unknown-avatar.svg' }}"
+	alt="Picture of {{ infodata.name }}"
+/><br>
+{% endif %}
+
+{% if current_user.is_authenticated %}
+<div class="FlowerForm">
+	<br><form class="SubmitFlower" method="post">
+		<label for="name">Name:</label><br />
+		<input id="flowername" type="text" id="name" name="name"  placeholder= "Enter your name" value="" /><br />
+		<label for="flowermessage">Flower message:</label><br />
+		<textarea id="flowermessage" name="flowermessage" placeholder= "Enter a message"></textarea><br />
+		<input type="submit" value="Submit" />
+	</form><br>
+</div>
+{% endif %}
+
+{% for flower in flowers %}
+<div class= "FlowerSection">
+	<p>{{ flower[1] }}</p>
+    <p1>left by: {{ flower[0] }}</p1>
+</div>
+{% endfor %}
+{%endblock%}

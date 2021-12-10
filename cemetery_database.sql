@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS Login;
 DROP TABLE IF EXISTS Information;
+DROP TABLE IF EXISTS Flower;
 
 CREATE TABLE IF NOT EXISTS `Login` (
   `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -40,3 +41,10 @@ INSERT INTO 'Information' ('Name', 'Date of birth', 'Date of death', 'Informatio
 
 INSERT INTO Information ('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image', 'Latitude', 'Longitude') VALUES
 ('George Bath', '1815', '1891', 'DEATH OF A POLICE VETERAN. - There died at his house, 18, Blewitt-street, on Tuesday afternoon ex-Police sergeant George Bath, who more than half a century ago joined the borough force, when its strength was only about half a dozen men. Coming to Newport from Somersetshire about the year 1840, he was enrolled as a constable within something like twelve months after the Chartist attack on the town. He continued in the force for 30 years, rising to sergeant’s rank and taking in his latter police days the duty of summoning officer. In 1870 he was superannuated from the force and for some years took light duties as an assistant-inspector of nuisances. He became very much enfeebled and died on Tuesday afternoon at the age of 77.', 'COND21', '239', '', 51.583482, -3.016401);
+
+CREATE TABLE IF NOT EXISTS `Flower` (
+  `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  `name`	TEXT NOT NULL,
+  `message`	TEXT NOT NULL,
+  `target`	INTEGER NOT NULL
+);

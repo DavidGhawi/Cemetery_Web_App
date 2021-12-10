@@ -1,6 +1,7 @@
 html {
 	height: 100%;
 	background-color: #C8C8C8;
+	scroll-behavior: smooth;
 }
 
 .navigation {
@@ -33,7 +34,8 @@ html {
 
 .navigation ul li a {
 	color: black;
-	padding: 20px;
+	padding: fit-content;
+	margin: 20px;
 	width: 25%;
 	font-size: 20px;
 	text-transform: uppercase;
