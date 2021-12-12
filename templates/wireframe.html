@@ -78,7 +78,7 @@
 				  if (links[i].parentNode.classList.contains("active")) {
 					links[i].parentNode.classList.remove("active");
 				  }
-				  links[i].style.opacity = "0.25";
+				  links[i].style.opacity = "0.5";
 				}
 		  
 				this.parentNode.classList.add("active");
@@ -88,7 +88,7 @@
 				const height = this.getBoundingClientRect().height;
 				const left = this.getBoundingClientRect().left + window.pageXOffset;
 				const top = this.getBoundingClientRect().top + window.pageYOffset;
-				const color = colors[Math.floor(Math.random() * colors.length)];
+				const color = colors;
 		  
 				NavAnimation.style.width = `${width}px`;
 				NavAnimation.style.height = `${height}px`;
@@ -100,7 +100,6 @@
 			}
 		  
 			for (let i = 0; i < links.length; i++) {
-			  links[i].addEventListener("click", (e) => e.preventDefault());
 			  links[i].addEventListener("mouseenter", mouseenterFunc);
 			}
 		  
