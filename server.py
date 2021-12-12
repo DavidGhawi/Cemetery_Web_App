@@ -1,3 +1,4 @@
+from email import message
 from email.message import EmailMessage
 import os
 import sqlite3
@@ -387,6 +388,8 @@ def flowers(id):
         name = request.form.get('name')
         flowermessage = request.form.get('flowermessage')
         target = id
+        if len(flowermessage) == 0:
+            return render_template('view_flowers.html', flowers=flowersdata, infodata=infodata, message= "Must fill out all fields")
         c.execute("INSERT INTO Flower('Name', 'message', 'target') VALUES (?, ?, ?);",
                   (name, flowermessage, target))
         conn.commit()
