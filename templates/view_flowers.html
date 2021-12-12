@@ -2,7 +2,17 @@
 <link rel="stylesheet" type="text/css" href="/static/flower_styling.css" />
 {% if infodata %}
 <h1>{{ infodata.name }}</h1>
+
+{% if current_user.is_authenticated %}
 <a id= "FlowerLink" href="#flowername">Submit a flower</a><br>
+{% endif %}
+
+{% if current_user.is_authenticated == False %}
+<div style="font-size: 20px">
+	<a>If you would like to submit a flower, please <a href="/login">login</a>.</a><br>
+</div>
+{% endif %}
+
 <br><img
 	src="{{ infodata.img or '/static/unknown-avatar.svg' }}"
 	alt="Picture of {{ infodata.name }}"
@@ -11,6 +21,9 @@
 
 {% if current_user.is_authenticated %}
 <div class="FlowerForm">
+	<div style="font-size: 20px">
+		<br>{{ message }}<br>
+	</div>
 	<br><form class="SubmitFlower" method="post">
 		<label for="name">Name:</label><br />
 		<input id="flowername" type="text" id="name" name="name"  placeholder= "Enter your name" value="" /><br />
