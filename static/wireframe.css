@@ -239,3 +239,10 @@ footer:hover .form {
     transform: rotate(360deg);
   }
 }
+
+.cemeteryMap {
+	max-width: 1536px;
+	max-height: 1092.75px;
+	left: 180px;
+	position:  relative;
+}

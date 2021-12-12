@@ -5,7 +5,7 @@ Forgot Password
 {%endblock%}
 
 {% block mainBlock%}
-{{ error }}
+ <div style = "color: red">{{ error }} </div>
 <form id="myForm" action="/sendNewCode" method="POST">
   Enter Username and a reset link will be sent to the related email:
   <input id = "Username" type="text" name="Username" placeholder="Username..."><br>
