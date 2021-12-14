@@ -1,6 +1,9 @@
 DROP TABLE IF EXISTS Login;
 DROP TABLE IF EXISTS Information;
 DROP TABLE IF EXISTS Flower;
+DROP TABLE IF EXISTS Contact;
+DROP TABLE IF EXISTS Favorite;
+
 
 CREATE TABLE IF NOT EXISTS `Login` (
   `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -10,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `Login` (
   'OTP'       TEXT DEFAULT NULL
 );
 
-INSERT INTO 'Login'('Username','Password', 'Email') VALUES 
+INSERT INTO 'Login'('Username','Password', 'Email') VALUES
 ('admin','pbkdf2:sha256:260000$QVmjB5L1yPtuO6w8$79557af45499cb64aa6c329956ff522109098aee71aa8c2685620d9e1ca943ff', 'stwooloscemetary.cardiff@gmail.com');
 
 CREATE TABLE IF NOT EXISTS `Information` (
@@ -27,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `Information` (
   'Longitude' REAL DEFAULT NULL
 );
 
-INSERT INTO 'Information' ('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image') VALUES 
+INSERT INTO 'Information' ('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image') VALUES
 ('Albert Watkins', 'N/A', '21 December 1916', 'Chief engineer on board the ship "Rheims", died of consumption at Spezia, Italy.', 'COND40', '191', ''),
 ('Edward SCAPLEHORN', 'N/A', '7 August 1918', 'Royal Field Artillery, 740902, 463rd Batt., Mon. Regt. CROUY British Cemetery, Crouy-Sur-Somme, France. Son of Charles & Clara Ann Scaplehorn, of 94 Commercial Street, Newport.', 'FCD08', '15', ''),
 ('Arthur John DORAN', 'N/A', '4 November 1918', 'Memorial on Family Headstone, killed in France ', 'FCD08', '318', ''),
@@ -42,9 +45,24 @@ INSERT INTO 'Information' ('Name', 'Date of birth', 'Date of death', 'Informatio
 INSERT INTO Information ('Name', 'Date of birth', 'Date of death', 'Information', 'Cemetery section', 'Grave number', 'Image', 'Latitude', 'Longitude') VALUES
 ('George Bath', '1815', '1891', 'DEATH OF A POLICE VETERAN. - There died at his house, 18, Blewitt-street, on Tuesday afternoon ex-Police sergeant George Bath, who more than half a century ago joined the borough force, when its strength was only about half a dozen men. Coming to Newport from Somersetshire about the year 1840, he was enrolled as a constable within something like twelve months after the Chartist attack on the town. He continued in the force for 30 years, rising to sergeant’s rank and taking in his latter police days the duty of summoning officer. In 1870 he was superannuated from the force and for some years took light duties as an assistant-inspector of nuisances. He became very much enfeebled and died on Tuesday afternoon at the age of 77.', 'COND21', '239', '', 51.583482, -3.016401);
 
+CREATE TABLE IF NOT EXISTS `Contact` (
+  `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  `name`	TEXT NOT NULL,
+  `email`	TEXT NOT NULL,
+  `message`	TEXT NOT NULL
+  );
+
+  INSERT INTO 'Contact'('name','email','message') VALUES
+  ('David','hammondd3@cardiff.ac.uk', 'testing');
+
 CREATE TABLE IF NOT EXISTS `Flower` (
   `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   `name`	TEXT NOT NULL,
   `message`	TEXT NOT NULL,
   `target`	INTEGER NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS `Favorite` (
+  `ID`		INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+  `User`	INTEGER NOT NULL,
+  `Grave`	TEXT NOT NULL

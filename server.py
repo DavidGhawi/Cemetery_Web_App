@@ -90,6 +90,25 @@ def home():
         return render_template('Home_page.html')
 
 
+
+@app.route("/contactus", methods=['GET','POST'])
+def contactus():
+    if request.method == 'GET':
+        return render_template('contact.html')
+    else:
+        name = request.form.get('name')
+        email = request.form.get('email')
+        message = request.form.get('message')
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        c.execute("INSERT INTO Contact('Name', 'email', 'message') VALUES (?, ?, ?);",
+                  (name, email, message))
+        conn.commit()
+        conn.close()
+        return render_template('contact.html', message="Submitted contact form!")
+
+
+
 @app.route("/map", methods=['GET'])
 def map():
     if request.method == 'GET':
@@ -494,6 +513,27 @@ def createNewPass():
     else:
         return render_template("createpass.html", message="Passwords Don't Match", Username=Username)
 
+@app.route("/favorites", methods=['GET'])
+@login_required
+def favorites():
+    if current_user.is_authenticated:
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        data = c.execute("SELECT Grave FROM Favorite WHERE User = ?;", (current_user.get_id(),)).fetchall()
+        print(data)
+        conn.close()
+        return render_template("favorites.html", favorites=data)
+    else:
+        return redirect('/login')
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
+
+
+
+@app.route("/map", methods=['GET'])
+def map():
+    if request.method == 'GET':
+        return render_template('map_page.html')

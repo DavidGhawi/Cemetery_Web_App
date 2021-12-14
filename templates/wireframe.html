@@ -15,6 +15,9 @@
 					<a href="/map">Plot Map</a>
 				</li>
 				<li>
+					<a href="/contact">Contact Us</a>
+				</li>
+				<li>
 					<a href="/livemap">Live Map</a>
 				</li>
 				<li>
@@ -32,6 +35,10 @@
 				<li>
 					<a href="/add">Add Person</a>
 				</li>
+				{%endif%}{% if current_user.is_authenticated %}
+				<li>
+					<a href="/favourite">Favourite</a>
+				</li>
 				{%endif%}{% if not current_user.is_anonymous %}
 				<li>
 					<a href="/logout">Logout</a>
@@ -47,7 +54,6 @@
 		{%block mainBlock%} {%endblock%}
 		<footer class="footer">
 			<button onclick="topFunction()" id="topBtn" title="Go to top">Top</button>
-		</footer>
 	</body>
 	<script type="text/javascript">
 		var topbutton = document.getElementById("topBtn");
