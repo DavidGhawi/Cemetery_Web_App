@@ -487,8 +487,8 @@ def addfavourite():
     else:
         return jsonify({"success": False})
 
-@app.route("/favorites", methods=['GET'])
-def favorites():
+@app.route("/favourite", methods=['GET'])
+def favourite():
     if current_user.is_authenticated:
         conn = sqlite3.connect(DATABASE)
         c = conn.cursor()
